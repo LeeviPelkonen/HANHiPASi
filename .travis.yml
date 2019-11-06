@@ -93,7 +93,6 @@ matrix:
     #   env: DIST=trusty STACK=GCE GROUP=edge
 #     - os: osx
 
-
 notifications:
   email: false
 
