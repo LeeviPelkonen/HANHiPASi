@@ -48,7 +48,8 @@ install: skip
 #   global:
 #     - PATH=/usr/local/android-sdk/tools/bin:$PATH
 
-script: skip
+script:
+  - ./gradlew assembleRelease
 # android:
 #   components:
 #     - tools
