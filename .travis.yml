@@ -94,7 +94,7 @@ matrix:
 #     - os: osx
 
 notifications:
-  email: false
+  email: true
 
   #  slack:
   #  rooms:
