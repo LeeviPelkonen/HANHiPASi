@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package org.tensorflow.lite.examples.classification
+package arkki
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Fragment
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
-import android.hardware.camera2.params.StreamConfigurationMap
-import android.media.Image
 import android.media.Image.Plane
 import android.media.ImageReader
 import android.media.ImageReader.OnImageAvailableListener
@@ -51,13 +48,12 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import java.nio.ByteBuffer
-import org.tensorflow.lite.examples.classification.env.ImageUtils
-import org.tensorflow.lite.examples.classification.env.Logger
-import org.tensorflow.lite.examples.classification.tflite.Classifier
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Device
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Model
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Recognition
+import arkki.env.ImageUtils
+import arkki.env.Logger
+import arkki.tflite.Classifier.Device
+import arkki.tflite.Classifier.Model
+import arkki.tflite.Classifier.Recognition
+import org.tensorflow.lite.examples.classification.R
 
 abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, Camera.PreviewCallback, View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected var previewWidth = 0

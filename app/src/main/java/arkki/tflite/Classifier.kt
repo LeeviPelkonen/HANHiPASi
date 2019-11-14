@@ -13,10 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.classification.tflite
+package arkki.tflite
 
 import android.app.Activity
-import android.content.res.AssetFileDescriptor
 import android.graphics.Bitmap
 import android.graphics.RectF
 import android.os.SystemClock
@@ -34,14 +33,15 @@ import java.util.ArrayList
 import java.util.Comparator
 import java.util.PriorityQueue
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.examples.classification.env.Logger
+import arkki.env.Logger
 import org.tensorflow.lite.gpu.GpuDelegate
+import kotlin.math.min
 
 /** A classifier specialized to label images using TensorFlow Lite.  */
 abstract class Classifier
 /** Initializes a `Classifier`.  */
 @Throws(IOException::class)
-protected constructor(activity: Activity, device: Device, numThreads: Int) {
+protected constructor(private val activity: Activity, device: Device, numThreads: Int) {
 
     /** Preallocated buffers for storing image data in.  */
     private val intValues = IntArray(imageSizeX * imageSizeY)
@@ -63,6 +63,12 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
 
     /** A ByteBuffer to hold image data, to be feed into Tensorflow Lite as inputs.  */
     protected var imgData: ByteBuffer? = null
+
+    /** A Counter to help detect birds */
+    private var birdCounter = 0
+
+    /** */
+    private var leadingBird: String? = null
 
     /**
      * Get the image size along the x axis.
@@ -120,6 +126,8 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
         GPU
     }
 
+    data class BirdRecognition(val recognitions: ArrayList<Recognition>, val bird: String?)
+
     /** An immutable result returned by a Classifier describing what was recognized.  */
     class Recognition(
             /**
@@ -169,12 +177,12 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
     init {
         tfliteModel = loadModelFile(activity)
         when (device) {
-            Classifier.Device.NNAPI -> tfliteOptions.setUseNNAPI(true)
-            Classifier.Device.GPU -> {
+            Device.NNAPI -> tfliteOptions.setUseNNAPI(true)
+            Device.GPU -> {
                 gpuDelegate = GpuDelegate()
                 tfliteOptions.addDelegate(gpuDelegate)
             }
-            Classifier.Device.CPU -> {
+            Device.CPU -> {
             }
         }
         tfliteOptions.setNumThreads(numThreads)
@@ -238,7 +246,7 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
     }
 
     /** Runs inference and returns the classification results.  */
-    fun recognizeImage(bitmap: Bitmap): List<Recognition> {
+    fun recognizeImage(bitmap: Bitmap): BirdRecognition {
         // Log this method so that it can be analyzed with systrace.
         Trace.beginSection("recognizeImage")
 
@@ -259,7 +267,7 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
                 3,
                 Comparator<Recognition> { lhs, rhs ->
                     // Intentionally reversed to put high confidence at the head of the queue.
-                    java.lang.Float.compare(rhs.confidence!!, lhs.confidence!!)
+                    (rhs.confidence!!).compareTo(lhs.confidence!!)
                 })
         for (i in labels.indices) {
             pq.add(
@@ -269,12 +277,28 @@ protected constructor(activity: Activity, device: Device, numThreads: Int) {
                             getNormalizedProbability(i), null))
         }
         val recognitions = ArrayList<Recognition>()
-        val recognitionsSize = Math.min(pq.size, MAX_RESULTS)
+        val recognitionsSize = min(pq.size, MAX_RESULTS)
         for (i in 0 until recognitionsSize) {
             recognitions.add(pq.poll())
         }
         Trace.endSection()
-        return recognitions
+        val newBird = recognitions[0]
+
+        if (leadingBird == newBird.title) {
+            birdCounter++
+        } else {
+            birdCounter = 0
+            leadingBird = newBird.title
+        }
+
+        if (birdCounter >= 10) {
+            birdCounter = 0
+            Log.d("dbg", "name: ${newBird.title}")
+            return BirdRecognition(recognitions, newBird.title)
+        }
+
+        //Log.d("dbg", "$recognitions bird counter: $birdCounter")
+        return BirdRecognition(recognitions, null)
     }
 
     /** Closes the interpreter and model to release resources.  */

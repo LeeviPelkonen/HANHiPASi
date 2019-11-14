@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.classification.tflite
+package arkki.tflite
 
 import android.app.Activity
 import java.io.IOException
@@ -26,7 +26,7 @@ class ClassifierFloatMobileNet
  * @param activity
  */
 @Throws(IOException::class)
-constructor(activity: Activity, device: Classifier.Device, numThreads: Int) : Classifier(activity, device, numThreads) {
+constructor(activity: Activity, device: Device, numThreads: Int) : Classifier(activity, device, numThreads) {
 
     /**
      * An array to hold inference results, to be feed into Tensorflow Lite as outputs. This isn't part

@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.classification.customview
+package arkki.customview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -21,7 +21,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Recognition
+import arkki.tflite.Classifier.Recognition
 
 class RecognitionScoreView(context: Context, set: AttributeSet) : View(context, set), ResultsView {
     private val textSizePx: Float

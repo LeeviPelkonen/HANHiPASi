@@ -13,9 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.classification.customview
+package arkki.customview
 
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Recognition
+import arkki.tflite.Classifier.Recognition
 
 interface ResultsView {
     fun setResults(results: List<Recognition>)

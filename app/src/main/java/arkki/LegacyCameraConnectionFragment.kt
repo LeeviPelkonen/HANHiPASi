@@ -1,4 +1,4 @@
-package org.tensorflow.lite.examples.classification
+package arkki
 
 /*
  * Copyright 2019 The TensorFlow Authors. All Rights Reserved.
@@ -32,9 +32,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import java.io.IOException
-import org.tensorflow.lite.examples.classification.customview.AutoFitTextureView
-import org.tensorflow.lite.examples.classification.env.ImageUtils
-import org.tensorflow.lite.examples.classification.env.Logger
+import arkki.customview.AutoFitTextureView
+import arkki.env.ImageUtils
+import arkki.env.Logger
+import org.tensorflow.lite.examples.classification.R
 
 class LegacyCameraConnectionFragment @SuppressLint("ValidFragment")
 constructor(

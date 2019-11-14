@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package org.tensorflow.lite.examples.classification
+package arkki
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.res.Configuration
 import android.graphics.ImageFormat
 import android.graphics.Matrix
@@ -35,7 +33,6 @@ import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CaptureRequest
 import android.hardware.camera2.CaptureResult
 import android.hardware.camera2.TotalCaptureResult
-import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.ImageReader
 import android.media.ImageReader.OnImageAvailableListener
 import android.os.Bundle
@@ -58,8 +55,9 @@ import java.util.Collections
 import java.util.Comparator
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
-import org.tensorflow.lite.examples.classification.customview.AutoFitTextureView
-import org.tensorflow.lite.examples.classification.env.Logger
+import arkki.customview.AutoFitTextureView
+import arkki.env.Logger
+import org.tensorflow.lite.examples.classification.R
 
 class CameraConnectionFragment @SuppressLint("ValidFragment")
 private constructor(

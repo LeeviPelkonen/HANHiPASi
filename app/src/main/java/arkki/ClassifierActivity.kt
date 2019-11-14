@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.tensorflow.lite.examples.classification
+package arkki
 
 import android.graphics.Bitmap
 import android.graphics.Bitmap.Config
@@ -28,12 +28,13 @@ import android.util.TypedValue
 import android.widget.Toast
 import org.jetbrains.anko.doAsync
 import java.io.IOException
-import org.tensorflow.lite.examples.classification.env.BorderedText
-import org.tensorflow.lite.examples.classification.env.ImageUtils
-import org.tensorflow.lite.examples.classification.env.Logger
-import org.tensorflow.lite.examples.classification.tflite.Classifier
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Device
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Model
+import arkki.env.BorderedText
+import arkki.env.ImageUtils
+import arkki.env.Logger
+import arkki.tflite.Classifier
+import arkki.tflite.Classifier.Device
+import arkki.tflite.Classifier.Model
+import org.tensorflow.lite.examples.classification.R
 
 class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
     private var rgbFrameBitmap: Bitmap? = null
@@ -120,12 +121,15 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
                 cropCopyBitmap = Bitmap.createBitmap(croppedBitmap!!)
 
                 runOnUiThread {
-                    showResultsInBottomSheet(results)
+                    showResultsInBottomSheet(results.recognitions)
                     showFrameInfo(previewWidth.toString() + "x" + previewHeight)
                     showCropInfo(cropCopyBitmap!!.width.toString() + "x" + cropCopyBitmap!!.height)
                     showCameraResolution(canvas.width.toString() + "x" + canvas.height)
                     showRotationInfo(sensorOrientation.toString())
                     showInference(lastProcessingTimeMs.toString() + "ms")
+                    if (results.bird != null) {
+                        Toast.makeText(applicationContext, "bird: ${results.bird}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             readyForNextImage()
