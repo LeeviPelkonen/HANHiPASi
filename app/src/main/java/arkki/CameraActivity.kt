@@ -125,6 +125,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
             requestPermission()
         }
 
+
         threadsTextView = findViewById(R.id.threads)
         plusImageView = findViewById(R.id.plus)
         minusImageView = findViewById(R.id.minus)

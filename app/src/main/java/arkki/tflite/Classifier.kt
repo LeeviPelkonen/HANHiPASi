@@ -291,7 +291,7 @@ protected constructor(private val activity: Activity, device: Device, numThreads
             leadingBird = newBird.title
         }
 
-        if (birdCounter >= 10) {
+        if (birdCounter >= 10 && newBird.confidence!! >= 0.85f) {
             birdCounter = 0
             Log.d("dbg", "name: ${newBird.title}")
             return BirdRecognition(recognitions, newBird.title)
