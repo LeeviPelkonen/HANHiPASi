@@ -16,16 +16,16 @@
 
 package arkki
 
-import android.graphics.Bitmap
+import android.graphics.*
 import android.graphics.Bitmap.Config
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.Typeface
 import android.media.ImageReader.OnImageAvailableListener
 import android.os.SystemClock
+import android.util.Log
 import android.util.Size
 import android.util.TypedValue
-import android.widget.Toast
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.widget.*
 import org.jetbrains.anko.doAsync
 import java.io.IOException
 import arkki.env.BorderedText
@@ -46,6 +46,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
     private var frameToCropTransform: Matrix? = null
     private var cropToFrameTransform: Matrix? = null
     private var borderedText: BorderedText? = null
+    private var infoIsShowing: Boolean = false
 
     protected override val layoutId: Int
         get() = R.layout.camera_connection_fragment
@@ -122,18 +123,46 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
 
                 runOnUiThread {
                     showResultsInBottomSheet(results.recognitions)
-                    showFrameInfo(previewWidth.toString() + "x" + previewHeight)
+                    /*showFrameInfo(previewWidth.toString() + "x" + previewHeight)
                     showCropInfo(cropCopyBitmap!!.width.toString() + "x" + cropCopyBitmap!!.height)
                     showCameraResolution(canvas.width.toString() + "x" + canvas.height)
                     showRotationInfo(sensorOrientation.toString())
-                    showInference(lastProcessingTimeMs.toString() + "ms")
+                    showInference(lastProcessingTimeMs.toString() + "ms")*/
                     if (results.bird != null) {
-                        Toast.makeText(applicationContext, "bird: ${results.bird}", Toast.LENGTH_SHORT).show()
+                        if (!infoIsShowing) {
+                            showPopupWindow(results.bird)
+                        }
+                        infoIsShowing = true
                     }
                 }
             }
             readyForNextImage()
         }
+    }
+
+    private fun showPopupWindow(bird: String?) {
+        val inflater: LayoutInflater = LayoutInflater.from(this@ClassifierActivity)
+        val view = inflater.inflate(R.layout.bird_info, LinearLayout(this@ClassifierActivity))
+        val title = view.findViewById<TextView>(R.id.tvBirdName)
+        val btnExit = view.findViewById<Button>(R.id.buttonExit)
+        title.text = bird
+
+        val width = LinearLayout.LayoutParams.MATCH_PARENT
+        val height = LinearLayout.LayoutParams.MATCH_PARENT
+        Log.d("dbg", "size: $width, $height, view: $view")
+
+        val popupWindow = PopupWindow(view, width, height, true)
+        popupWindow.animationStyle = R.style.popup_window_animation_phone
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0,0)
+
+        btnExit.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+        popupWindow.setOnDismissListener {
+            infoIsShowing = false
+        }
+
     }
 
     override fun onInferenceConfigurationChanged() {
