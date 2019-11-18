@@ -152,6 +152,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         Log.d("dbg", "size: $width, $height, view: $view")
 
         val popupWindow = PopupWindow(view, width, height, true)
+
         popupWindow.animationStyle = R.style.popup_window_animation_phone
         popupWindow.showAtLocation(view, Gravity.CENTER, 0,0)
 
