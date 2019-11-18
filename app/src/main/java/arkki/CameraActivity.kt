@@ -115,9 +115,6 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         setContentView(R.layout.activity_camera)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         if (hasPermission()) {
             setFragment()

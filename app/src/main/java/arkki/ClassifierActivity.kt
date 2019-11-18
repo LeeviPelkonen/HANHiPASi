@@ -16,16 +16,21 @@
 
 package arkki
 
+import android.annotation.SuppressLint
 import android.graphics.*
 import android.graphics.Bitmap.Config
 import android.media.ImageReader.OnImageAvailableListener
+import android.media.MediaPlayer
+import android.opengl.Visibility
 import android.os.SystemClock
 import android.util.Log
 import android.util.Size
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
+import androidx.annotation.RawRes
 import org.jetbrains.anko.doAsync
 import java.io.IOException
 import arkki.env.BorderedText
@@ -34,6 +39,7 @@ import arkki.env.Logger
 import arkki.tflite.Classifier
 import arkki.tflite.Classifier.Device
 import arkki.tflite.Classifier.Model
+import kotlinx.android.synthetic.main.bird_info.*
 import org.tensorflow.lite.examples.classification.R
 
 class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
@@ -47,6 +53,9 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
     private var cropToFrameTransform: Matrix? = null
     private var borderedText: BorderedText? = null
     private var infoIsShowing: Boolean = false
+    private lateinit var mediaPlayer: MediaPlayer
+    private val soundList = listOf("Lapasorsa", "Punasotka", "Ristisorsa", "Ruskosuohaukka")
+
 
     protected override val layoutId: Int
         get() = R.layout.camera_connection_fragment
@@ -140,17 +149,23 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private fun showPopupWindow(bird: String?) {
         val inflater: LayoutInflater = LayoutInflater.from(this@ClassifierActivity)
         val view = inflater.inflate(R.layout.bird_info, LinearLayout(this@ClassifierActivity))
         val title = view.findViewById<TextView>(R.id.tvBirdName)
         val btnExit = view.findViewById<Button>(R.id.buttonExit)
+        val soundButton = view.findViewById<ImageView>(R.id.ivSoundButton)
+        val soundId = resources.getIdentifier(bird!!.toLowerCase(), "raw", packageName)
         title.text = bird
+        mediaPlayer = MediaPlayer()
+
+        if (soundList.contains(bird)) {
+            soundButton.visibility = View.VISIBLE
+        }
 
         val width = LinearLayout.LayoutParams.MATCH_PARENT
         val height = LinearLayout.LayoutParams.MATCH_PARENT
-        Log.d("dbg", "size: $width, $height, view: $view")
-
         val popupWindow = PopupWindow(view, width, height, true)
         popupWindow.showAtLocation(view, Gravity.CENTER, 0,0)
 
@@ -158,8 +173,24 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
             popupWindow.dismiss()
         }
 
+        soundButton.setOnClickListener {
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.reset()
+                soundButton.setImageResource(R.drawable.speaker)
+            }
+            else {
+                mediaPlayer = MediaPlayer.create(this, soundId)
+                mediaPlayer.start()
+                soundButton.setImageResource(R.drawable.speaker_mute)
+            }
+        }
+
         popupWindow.setOnDismissListener {
             infoIsShowing = false
+            if (mediaPlayer.isPlaying){
+                mediaPlayer.stop()
+                mediaPlayer.release()
+            }
         }
 
     }

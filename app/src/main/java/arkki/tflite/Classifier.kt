@@ -284,14 +284,14 @@ protected constructor(private val activity: Activity, device: Device, numThreads
         Trace.endSection()
         val newBird = recognitions[0]
 
-        if (leadingBird == newBird.title) {
+        if (leadingBird == newBird.title && newBird.confidence!! >= 0.85f) {
             birdCounter++
         } else {
             birdCounter = 0
             leadingBird = newBird.title
         }
 
-        if (birdCounter >= 10 && newBird.confidence!! >= 0.85f) {
+        if (birdCounter >= 7) {
             birdCounter = 0
             Log.d("dbg", "name: ${newBird.title}")
             return BirdRecognition(recognitions, newBird.title)
