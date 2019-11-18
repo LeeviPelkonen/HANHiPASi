@@ -293,7 +293,7 @@ protected constructor(private val activity: Activity, device: Device, numThreads
 
         if (birdCounter >= 7) {
             birdCounter = 0
-            Log.d("dbg", "name: ${newBird.title}")
+            Log.d("dbg", "name: ${newBird.title} confidence: ${newBird.confidence}")
             return BirdRecognition(recognitions, newBird.title)
         }
 

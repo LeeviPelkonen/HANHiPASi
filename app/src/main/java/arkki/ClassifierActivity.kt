@@ -167,6 +167,8 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         val width = LinearLayout.LayoutParams.MATCH_PARENT
         val height = LinearLayout.LayoutParams.MATCH_PARENT
         val popupWindow = PopupWindow(view, width, height, true)
+
+        popupWindow.animationStyle = R.style.popup_window_animation_phone
         popupWindow.showAtLocation(view, Gravity.CENTER, 0,0)
 
         btnExit.setOnClickListener {
