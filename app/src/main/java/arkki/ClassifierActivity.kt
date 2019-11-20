@@ -132,7 +132,8 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
 
                 runOnUiThread {
                     showResultsInBottomSheet(results.recognitions)
-                    /*showFrameInfo(previewWidth.toString() + "x" + previewHeight)
+                    /*
+                    showFrameInfo(previewWidth.toString() + "x" + previewHeight)
                     showCropInfo(cropCopyBitmap!!.width.toString() + "x" + cropCopyBitmap!!.height)
                     showCameraResolution(canvas.width.toString() + "x" + canvas.height)
                     showRotationInfo(sensorOrientation.toString())
@@ -140,6 +141,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
                     if (results.bird != null) {
                         if (!infoIsShowing) {
                             showPopupWindow(results.bird)
+                            Log.d("dbg", "processimage")
                         }
                         infoIsShowing = true
                     }

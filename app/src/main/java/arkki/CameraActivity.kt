@@ -42,12 +42,7 @@ import android.view.Surface
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import arkki.env.ImageUtils
 import arkki.env.Logger
 import arkki.tflite.Classifier.Device
@@ -82,6 +77,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
     lateinit var rotationTextView: TextView
     lateinit var inferenceTimeTextView: TextView
     lateinit var bottomSheetArrowImageView: ImageView
+    lateinit var overlapSpace: Space
     private var plusImageView: ImageView? = null
     private var minusImageView: ImageView? = null
     private var modelSpinner: Spinner? = null
@@ -132,6 +128,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         gestureLayout = findViewById(R.id.gesture_layout)
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout!!)
         bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow)
+        overlapSpace = findViewById(R.id.overlap_space)
+
 
         val vto = gestureLayout!!.viewTreeObserver
         vto.addOnGlobalLayoutListener(
@@ -185,15 +183,19 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         rotationTextView = findViewById(R.id.rotation_info)
         inferenceTimeTextView = findViewById(R.id.inference_info)
 
-        modelSpinner!!.onItemSelectedListener = this
-        deviceSpinner!!.onItemSelectedListener = this
-
         plusImageView!!.setOnClickListener(this)
         minusImageView!!.setOnClickListener(this)
+
+        modelSpinner!!.onItemSelectedListener = this
+        deviceSpinner!!.onItemSelectedListener = this
 
         model = Model.valueOf(modelSpinner!!.selectedItem.toString().toUpperCase())
         device = Device.valueOf(deviceSpinner!!.selectedItem.toString())
         numThreads = Integer.parseInt(threadsTextView!!.text.toString().trim { it <= ' ' })
+
+
+
+
     }
 
     protected fun getRgbBytes(): IntArray? {
