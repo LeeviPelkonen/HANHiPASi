@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package arkki.env
+package com.example.arkki.env
 
 import android.annotation.SuppressLint
 import android.util.Log

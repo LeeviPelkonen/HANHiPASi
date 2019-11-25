@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package arkki
+package com.example.arkki
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -36,18 +36,17 @@ import android.util.Log
 import androidx.annotation.UiThread
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.util.Size
 import android.view.Surface
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
-import arkki.env.ImageUtils
-import arkki.env.Logger
-import arkki.tflite.Classifier.Device
-import arkki.tflite.Classifier.Model
-import arkki.tflite.Classifier.Recognition
+import com.example.arkki.env.ImageUtils
+import com.example.arkki.env.Logger
+import com.example.arkki.tflite.Classifier.Device
+import com.example.arkki.tflite.Classifier.Model
+import com.example.arkki.tflite.Classifier.Recognition
 import org.tensorflow.lite.examples.classification.R
 
 abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, Camera.PreviewCallback, View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -419,24 +418,24 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         val fragment: androidx.fragment.app.Fragment
         if (useCamera2API) {
             val camera2Fragment = CameraConnectionFragment.newInstance(
-                    object : CameraConnectionFragment.ConnectionCallback {
-                        override fun onPreviewSizeChosen(size: Size?, cameraRotation: Int) {
-                            previewHeight = size!!.height
-                            previewWidth = size.width
-                            Log.d("dbg", "size: $size, cameraRotation: $cameraRotation, previewHeight: $previewHeight, previewWidth: $previewWidth")
-                            this@CameraActivity.onPreviewSizeChosen(size, cameraRotation)
-                        }
-                    },
-                    /*
-                    CameraConnectionFragment.ConnectionCallback { size, rotation ->
-                        previewHeight = size.height
+                object : CameraConnectionFragment.ConnectionCallback {
+                    override fun onPreviewSizeChosen(size: Size?, cameraRotation: Int) {
+                        previewHeight = size!!.height
                         previewWidth = size.width
-                        onPreviewSizeChosen(size, rotation)
+                        Log.d("dbg", "size: $size, cameraRotation: $cameraRotation, previewHeight: $previewHeight, previewWidth: $previewWidth")
+                        this@CameraActivity.onPreviewSizeChosen(size, cameraRotation)
                     }
-                    */
-                    this,
-                    layoutId,
-                    desiredPreviewFrameSize)
+                },
+                /*
+                CameraConnectionFragment.ConnectionCallback { size, rotation ->
+                    previewHeight = size.height
+                    previewWidth = size.width
+                    onPreviewSizeChosen(size, rotation)
+                }
+                */
+                this,
+                layoutId,
+                desiredPreviewFrameSize)
 
             camera2Fragment.setCamera(cameraId)
             fragment = camera2Fragment

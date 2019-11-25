@@ -13,9 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package arkki.customview
+package com.example.arkki.customview
 
-import arkki.tflite.Classifier.Recognition
+import com.example.arkki.tflite.Classifier.Recognition
 
 interface ResultsView {
     fun setResults(results: List<Recognition>)

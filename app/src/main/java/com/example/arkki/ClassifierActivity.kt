@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package arkki
+package com.example.arkki
 
 import android.annotation.SuppressLint
 import android.graphics.*
 import android.graphics.Bitmap.Config
 import android.media.ImageReader.OnImageAvailableListener
 import android.media.MediaPlayer
-import android.opengl.Visibility
 import android.os.SystemClock
 import android.util.Log
 import android.util.Size
@@ -30,16 +29,14 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.annotation.RawRes
 import org.jetbrains.anko.doAsync
 import java.io.IOException
-import arkki.env.BorderedText
-import arkki.env.ImageUtils
-import arkki.env.Logger
-import arkki.tflite.Classifier
-import arkki.tflite.Classifier.Device
-import arkki.tflite.Classifier.Model
-import kotlinx.android.synthetic.main.bird_info.*
+import com.example.arkki.env.BorderedText
+import com.example.arkki.env.ImageUtils
+import com.example.arkki.env.Logger
+import com.example.arkki.tflite.Classifier
+import com.example.arkki.tflite.Classifier.Device
+import com.example.arkki.tflite.Classifier.Model
 import org.tensorflow.lite.examples.classification.R
 
 class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
@@ -92,7 +89,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
                 classifier!!.imageSizeX,
                 classifier!!.imageSizeY,
                 sensorOrientation!!,
-                MAINTAIN_ASPECT)
+            MAINTAIN_ASPECT)
 
         cropToFrameTransform = Matrix()
         frameToCropTransform!!.invert(cropToFrameTransform)

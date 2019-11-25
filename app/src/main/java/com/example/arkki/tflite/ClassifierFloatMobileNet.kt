@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package arkki.tflite
+package com.example.arkki.tflite
 
 import android.app.Activity
 import java.io.IOException

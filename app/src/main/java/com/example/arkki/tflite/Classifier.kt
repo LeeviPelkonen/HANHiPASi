@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package arkki.tflite
+package com.example.arkki.tflite
 
 import android.app.Activity
 import android.graphics.Bitmap
@@ -33,7 +33,7 @@ import java.util.ArrayList
 import java.util.Comparator
 import java.util.PriorityQueue
 import org.tensorflow.lite.Interpreter
-import arkki.env.Logger
+import com.example.arkki.env.Logger
 import org.tensorflow.lite.gpu.GpuDelegate
 import kotlin.math.min
 
@@ -271,10 +271,10 @@ protected constructor(private val activity: Activity, device: Device, numThreads
                 })
         for (i in labels.indices) {
             pq.add(
-                    Recognition(
-                            "" + i,
-                            if (labels.size > i) labels[i] else "unknown",
-                            getNormalizedProbability(i), null))
+                Recognition(
+                    "" + i,
+                    if (labels.size > i) labels[i] else "unknown",
+                    getNormalizedProbability(i), null))
         }
         val recognitions = ArrayList<Recognition>()
         val recognitionsSize = min(pq.size, MAX_RESULTS)
@@ -284,14 +284,16 @@ protected constructor(private val activity: Activity, device: Device, numThreads
         Trace.endSection()
         val newBird = recognitions[0]
 
-        if (leadingBird == newBird.title && newBird.confidence!! >= 0.9f) {
-            birdCounter++
+        if (leadingBird == newBird.title && newBird.confidence!! >= 0.97f) {
+            if (newBird.title != "kyssäri") {
+                birdCounter++
+            }
         } else {
             birdCounter = 0
             leadingBird = newBird.title
         }
 
-        if (birdCounter >= 7) {
+        if (birdCounter >= 3) {
             birdCounter = 0
             Log.d("dbg", "name: ${newBird.title} confidence: ${newBird.confidence}")
             return BirdRecognition(recognitions, newBird.title)

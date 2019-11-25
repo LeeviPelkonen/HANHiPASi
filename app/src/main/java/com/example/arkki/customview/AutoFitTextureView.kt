@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package arkki.customview
+package com.example.arkki.customview
 
 import android.content.Context
 import android.util.AttributeSet

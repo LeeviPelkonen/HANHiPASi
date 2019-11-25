@@ -1,4 +1,4 @@
-package arkki
+package com.example.arkki
 
 /*
  * Copyright 2019 The TensorFlow Authors. All Rights Reserved.
@@ -32,9 +32,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import java.io.IOException
-import arkki.customview.AutoFitTextureView
-import arkki.env.ImageUtils
-import arkki.env.Logger
+import com.example.arkki.customview.AutoFitTextureView
+import com.example.arkki.env.ImageUtils
+import com.example.arkki.env.Logger
 import org.tensorflow.lite.examples.classification.R
 
 class LegacyCameraConnectionFragment @SuppressLint("ValidFragment")
@@ -69,7 +69,7 @@ constructor(
                     sizes[i++] = Size(size.width, size.height)
                 }
                 val previewSize = CameraConnectionFragment.chooseOptimalSize(
-                        sizes, desiredSize.width, desiredSize.height)
+                    sizes, desiredSize.width, desiredSize.height)
                 parameters.setPreviewSize(previewSize.width, previewSize.height)
                 camera!!.setDisplayOrientation(90)
                 camera!!.parameters = parameters

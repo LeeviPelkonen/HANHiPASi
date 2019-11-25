@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package arkki
+package com.example.arkki
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -55,18 +55,18 @@ import java.util.Collections
 import java.util.Comparator
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
-import arkki.customview.AutoFitTextureView
-import arkki.env.Logger
+import com.example.arkki.customview.AutoFitTextureView
+import com.example.arkki.env.Logger
 import org.tensorflow.lite.examples.classification.R
 
 class CameraConnectionFragment @SuppressLint("ValidFragment")
 private constructor(
-        private val cameraConnectionCallback: ConnectionCallback,
-        /** A [OnImageAvailableListener] to receive frames as they are available.  */
+    private val cameraConnectionCallback: ConnectionCallback,
+    /** A [OnImageAvailableListener] to receive frames as they are available.  */
         private val imageListener: OnImageAvailableListener,
-        /** The layout identifier to inflate for this Fragment.  */
+    /** The layout identifier to inflate for this Fragment.  */
         private val layout: Int,
-        /** The input size in pixels desired by TensorFlow (width and height of a square bitmap).  */
+    /** The input size in pixels desired by TensorFlow (width and height of a square bitmap).  */
         private val inputSize: Size) : Fragment() {
 
     private fun cameraConnectionFragment() {}
@@ -215,9 +215,9 @@ private constructor(
             // bus' bandwidth limitation, resulting in gorgeous previews but the storage of
             // garbage capture data.
             previewSize = chooseOptimalSize(
-                    map!!.getOutputSizes<SurfaceTexture>(SurfaceTexture::class.java),
-                    inputSize.width,
-                    inputSize.height)
+                map!!.getOutputSizes<SurfaceTexture>(SurfaceTexture::class.java),
+                inputSize.width,
+                inputSize.height)
 
             // We fit the aspect ratio of TextureView to the size of preview we picked.
             val orientation = resources.configuration.orientation
@@ -519,10 +519,10 @@ private constructor(
         }
 
         fun newInstance(
-                callback: ConnectionCallback,
-                imageListener: OnImageAvailableListener,
-                layout: Int,
-                inputSize: Size): CameraConnectionFragment {
+            callback: ConnectionCallback,
+            imageListener: OnImageAvailableListener,
+            layout: Int,
+            inputSize: Size): CameraConnectionFragment {
             return CameraConnectionFragment(callback, imageListener, layout, inputSize)
         }
     }
