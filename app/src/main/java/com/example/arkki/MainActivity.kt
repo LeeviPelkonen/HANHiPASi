@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 "Kamera" -> {
                     Log.d("dbg", "kamera")
+                    val intent = Intent(this, InstaCameraActivity::class.java)
+                    startActivity(intent)
+                    customType(this, "bottom-to-up")
                 }
 
 
