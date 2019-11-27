@@ -19,6 +19,7 @@ package com.example.arkki
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.camera2.CameraAccessException
@@ -47,7 +48,11 @@ import com.example.arkki.env.Logger
 import com.example.arkki.tflite.Classifier.Device
 import com.example.arkki.tflite.Classifier.Model
 import com.example.arkki.tflite.Classifier.Recognition
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import org.tensorflow.lite.examples.classification.R
+import maes.tech.intentanim.CustomIntent.customType
+
 
 abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, Camera.PreviewCallback, View.OnClickListener, AdapterView.OnItemSelectedListener {
     protected var previewWidth = 0
@@ -77,6 +82,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
     lateinit var inferenceTimeTextView: TextView
     lateinit var bottomSheetArrowImageView: ImageView
     lateinit var overlapSpace: Space
+    private lateinit var navigationBar: BottomNavigationView
     private var plusImageView: ImageView? = null
     private var minusImageView: ImageView? = null
     private var modelSpinner: Spinner? = null
@@ -110,6 +116,34 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         setContentView(R.layout.activity_camera)
+
+        navigationBar = findViewById(R.id.bottomNavigationView)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.toString()) {
+                "Koti" -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    customType(this, "up-to-bottom")
+                }
+                "Linnut" -> {
+                    Log.d("dbg", "linnut")
+                }
+                "Peli" -> {
+                    Log.d("dbg", "peli")
+                }
+                "Trivia" -> {
+                    Log.d("dbg", "trivia")
+                }
+                "Kamera" -> {
+                    Log.d("dbg", "kamera")
+                }
+
+            }
+
+            Log.d("dbg", "$it")
+
+            return@setOnNavigationItemSelectedListener true
+        }
 
         if (hasPermission()) {
             setFragment()
@@ -192,9 +226,11 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         device = Device.valueOf(deviceSpinner!!.selectedItem.toString())
         numThreads = Integer.parseInt(threadsTextView!!.text.toString().trim { it <= ' ' })
 
+    }
 
-
-
+    override fun finish() {
+        super.finish()
+        customType(this, "up-to-bottom")
     }
 
     protected fun getRgbBytes(): IntArray? {
@@ -299,6 +335,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         LOGGER.d("onResume $this")
         super.onResume()
 
+        navigationBar.selectedItemId = R.id.action_recognition
         handlerThread = HandlerThread("inference")
         handlerThread!!.start()
         handler = Handler(handlerThread!!.looper)

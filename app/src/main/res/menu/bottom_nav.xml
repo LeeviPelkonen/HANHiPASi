@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_home"
+        android:title="Koti"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_recognition"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_recognition"
+        android:title="Linnut"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_game"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_game"
+        android:title="Peli"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_quiz"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_quiz"
+        android:title="Trivia"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_camera"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_camera"
+        android:title="Kamera"
+        app:showAsAction="ifRoom" />
+</menu>
