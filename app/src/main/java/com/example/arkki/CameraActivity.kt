@@ -631,8 +631,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
     companion object {
         private val LOGGER = Logger()
 
-        private val PERMISSIONS_REQUEST = 1
+        val PERMISSIONS_REQUEST = 1
 
-        private val PERMISSION_CAMERA = Manifest.permission.CAMERA
+        val PERMISSION_CAMERA = Manifest.permission.CAMERA
     }
 }

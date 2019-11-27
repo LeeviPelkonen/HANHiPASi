@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("dbg", "trivia")
                 }
                 "Kamera" -> {
-                    Log.d("dbg", "kamera")
+                    Log.d("dbg", "kamera123")
                     val intent = Intent(this, InstaCameraActivity::class.java)
                     startActivity(intent)
                     customType(this, "bottom-to-up")
