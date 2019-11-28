@@ -22,4 +22,53 @@
         <item>GPU</item>
         <item>NNAPI</item>
     </string-array>
+
+    <string name="harmaahaikara">Harmaahaikara (Ardea cinerea) on kaulushaikaran ohella Suomen yleisin haikara. Harmaahaikaroita on melkein kaikkialla Euroopassa ja Aasiassa, ainoastaan pohjoisessa niitä näkee harvoin. Niitä esiintyy myös Etelä-Afrikassa ja Madagaskarilla.\n\n
+        Euroopan pesimäkanta on 117 000–128 000 paria, joista Britteinsaarilla pesii 10 300 paria. Venäjällä on 20 000–25 000 ja Turkissa 2 000–5 000 paria. Harmaahaikarat pesivät Suomessa harvinaisena maan eteläosissa. Suomen kanta oli 1990-luvun lopulla yli 100 paria, ja se kasvaa vähitellen. Vuoden 2011 kannanarvio on 700-1000 paria.\n\n
+        Harmaahaikara pyydystää pääasiassa kaloja ja sammakoita. Se seisoo liikkumattomana matalassa vedessä ja iskee salamannopeasti nokkansa varomattomaan saaliiseen. Sille kelpaavat myös käärmeet, linnunpoikaset, ravut ja pikkujyrsijät. Tehokkaina kalansyöjinä harmaahaikarat voivat aiheuttaa merkittäviä tappioita kalanviljelylaitoksilla.</string>
+
+    <string name="kaulushaikara">Kaulushaikara (Botaurus stellaris) on harmaahaikaran ohella ainoa Suomessa vakituisesti pesivä haikara. Se piileksii ruovikossa, mutta soidinaikana sen pulloon puhaltamista muistuttava huuto kuuluu kauas. Vuonna 2005 kaulushaikara oli BirdLife Suomen vuoden laji, jonka pesimäkannan suuruus pyrittiin selvittämään lintuharrastajien ja yleisön avulla.\n\n
+        Kaulushaikara pesii Euroopan ja Aasian lauhkeilla alueilla. Pohjoisimmat yksilöt muuttavat vesien jäätyessä etelämmäksi. Vuonna 2005 Suomessa laskettiin 986 kaulushaikarakoirasta, mutta koska laji on polygyninen, kokonaismäärä saattaa ylittää 1000 paria. Kanta on kasvanut tasaisesti 1980-luvun lopulta lähtien, ja eniten lintuja tavataan nykyään Pohjois-Savossa, Päijät-Hämeessä, Kymenlaaksossa ja Pohjois-Karjalassa.\n\n
+        Ravinnoksi kaulushaikara syö sammakoita ja kaloja.</string>
+
+    <string name="kurki">Kurki pesii Euroopan ja Länsi-Aasian pohjoisosissa. Suomen kurkikanta on kaksinkertaistunut viimeisen kahdenkymmenen vuoden aikana. Vuonna 2004 Suomessa pesi noin 19 000 kurkiparia. Vuosina 2006–2009 kannanarvio oli jo 30 000 – 40 000 paria. Kurki on pitkän matkan muuttaja, joka talvehtii Afrikassa (Marokossa ja Etiopiassa), Etelä-Aasiassa (Pakistanissa, itäisessä Kiinassa) ja Etelä-Euroopassa. Keväällä kurjet saapuvat huhtikuun puolivälin paikkeilla, ja syksyllä ne lähtevät syyskuussa ja lokakuun alkupuoliskolla.\n\n
+        Kurjet viihtyvät soilla ja rantaniityillä. Pesintä järvien ja merenlahtien ruoikoissa lisääntyy kaiken aikaa. Muuttoaikoina kurjet viihtyvät vilja- ja perunapelloilla. Kurki on Pohjois-Pohjanmaan maakuntalintu.\n\n
+        Kurjet ovat kaikkiruokaisia. Ne syövät sammakoita, jyrsijöitä, kalaa, linnunpoikasia, mutta myös viljaa, perunoita ja marjoja.</string>
+
+    <string name="lapasorsa">Lapasorsaa tavataan pesivänä Euroopassa, Keski- ja Pohjois-Aasiassa ja Pohjois-Amerikassa. Talvehtivana sitä esiintyy Afrikassa, Etelä- ja Itä-Aasiassa, Väli-Amerikassa sekä Etelä-Amerikan luoteisosissa. Sen populaatioksi arvioidaan 5,5–6,0 miljoonaa yksilöä. Lapasorsa on luokiteltu elinvoimaiseksi.\n\n
+        Suomessa lapasorsaa tavataan koko maassa pohjoisinta Lappia lukuun ottamatta. Levinneisyys keskittyy maan etelä- ja keskiosiin. Suomen lapasorsakannaksi arvioitiin 1990-luvun lopulla noin 11 000 paria. Tämän jälkeen kanta ei ole selvästi muuttunut.\n\n
+        Lapasorsa viihtyy matalissa ja rehevissä järvissä, joissa on tiheää ja suojaavaa kasvillisuutta. Se voi pesiä myös soilla, joissa on riittävästi avovettä. Harvalukuisena lapasorsa pesii myös saariston heinäisillä saarilla, erityisesti lokkiyhdyskunnissa.\n\n
+        Lapasorsan pääasiallista ravintoa ovat erilaiset nilviäiset, äyriäiset, hyönteiset ja muut pieneläimet sekä vesikasvien siemenet. Suomessa rehevillä vesillä tehdyn tutkimuksen mukaan lapasorsat söivät 97-prosenttisesti eläinravintoa: kotiloita, surviaissääskien toukkia, vesisiiroja ja vesiperhosia. Kasvisravintona ne suosivat pikkulimaskaa.</string>
+
+    <string name="nokikana">Nokikana esiintyy yleisenä runsasravinteisissa vesissä Keski- ja Etelä-Suomessa. Eniten nokikanaa esiintyy Lounais-Suomessa, mistä levinneisyys ulottuu Perämeren tuntumaan ja Pohjois-Karjalaan.\n\n
+        Nokikana on muuttolintu. Nokikanat lähtevät Suomesta syys–lokakuussa talvehtimaan Keski- ja Etelä-Eurooppaan. Ne saapuvat takaisin Suomeen maaliskuun lopulla tai huhtikuun alussa. Nokikanoja tavataan harvoin talvella.\n\n
+        Nokikanan elinympäristönä toimivat ravinteikkaat ja rehevöityneet järvet, lammet sekä merenlahdet. Nokikana pesii yksittäispareina ja on tarkka reviirinsä rajoista. Nokikanat pesivät mielellään naurulokkiyhdyskunnissa.\n\n
+        Nokikana syö sekaravintoa, kuten veden selkärangattomia. Pääosa ravinnosta on vesikasvien osia. Syö myös muun muassa sammakoita, linnunpoikasia ja pikkunisäkkäitä. Se sukeltaa ruokansa, ja saalistaa ruuan nokallansa.</string>
+
+    <string name="punasotka">Punasotkaa tavataan enimmäkseen eteläisessä Suomessa ja jossain määrin myös Oulun läänissä. Se on muuttolintu, joka talvehtii Etelä- ja Länsi-Euroopassa. Vuonna 2010 Suomen pesimäkannaksi arvioitiin 10 000–13 000 paria. Määrä on ollut laskussa ja vuodesta 2010 laji on luokiteltu Suomessa vaarantuneeksi kun se ennen oli elinvoimainen. Sittemmin se on luokiteltu erittäin uhanalaiseksi.\n\n
+        Punasotka viihtyy parhaiten ruohostorantaisilla lintujärvillä ja merenlahdilla. Niukkaruohostoisilla järvillä ja merenlahdilla vain harvakseltaan. Saaristomeren sisäsaaristossa pesii pieni kanta lokkiluodoilla. Punasotkat karttavat pieniä vesistöjä.\n\n
+        Punasotka hankkii ravintonsa sukeltamalla pohjasta kotiloita, simpukoita ja muuta vastaavaa sekä vesikasvien siemeniä.</string>
+
+    <string name="ruisrääkkä">Ruisrääkkä pesii Euroopassa 45. leveysasteen pohjoispuolella napapiirille asti sekä Länsi-Aasiassa. Se on muuttolintu, joka talvehtii Saharan eteläpuolisessa Afrikassa. Pääesiintymisalueita ovat Venäjä, Baltian maat ja Valko-Venäjä. Suomessa koko Etelä-Suomessa, laulavien lintujen parimäärät vaihtelevat vuosittain ja alueittain. Euroopan pesimäkannaksi on arvioitu hieman vajaa 100 000 paria. Suomessa arvioidaan pesivän noin 7 000–12 000 paria. Laji on viime vuosikymmeninä runsastunut.\n\n
+        Ruisrääkkä elää pelloilla ja laidunmailla, sekä kuivahkoilla ahoilla ja niityillä. Sitä tavataan myös rantaniityillä ja jopa ruovikoiden reunavyöhykkeillä.\n\n
+        Ruisrääkkä syö lähinnä hyönteisiä. Myös nilviäisiä, matoja, pieniä sammakoita, pikkunisäkkäitä ja vihreitä lehtiä. Ruisrääkän herkkua ovat myös perhosen toukat.</string>
+
+    <string name="ristisorsa">Ristisorsaa tavataan pesivänä Euroopassa, Lähi-idässä ja Keski-Aasiassa. Lisäksi sitä esiintyy talvehtivana Pohjois-Afrikassa ja Etelä- ja Itä-Aasiassa. Sen maailmanlaajuiseksi kannaksi arvioidaan 580 000–710 000 yksilöä, ja sen kannankehitys on runsastuva. Maailmanlaajuisesti ristisorsa on luokiteltu elinvoimaiseksi.\n\n
+        Suomessa ristisorsa pesii rannikolla ja saaristossa. Pesimäkanta on vahvin Ahvenanmaan matalilla, niukkakasvustoisilla saarilla, rannikolla Porin ja Hangon välissä sekä Hailuodossa. Suomessa pesii noin 300 paria.\n\n
+        Ristisorsat pesivät merenrannikolla ja suurissa järvissä ja joissa. Ne ruokailevat matalassa vedessä, rantaniityillä ja pelloilla, ja voivat ruokailumatkoilla olla kaukanakin vedestä. Suomessa ristisorsa pesii rannikolla suosien hiekkarantaisia lahdelmia ja jokien suistoja. Sisämaassa sitä tavataan Suomessa harvoin.\n\n
+        Ristisorsa käyttää ravinnokseen pikkueläimiä kuten nilviäisiä ja äyriäisiä sekä levää ja vesikasvien siemeniä.</string>
+
+    <string name="ruokki">Levinneisyys: Pohjois-Atlantin rannikot Amerikassa Mainen osavaltioon asti, Euroopassa Islannista ja Kuolan niemimaalta Pohjois-Ranskaan. Suomessa ruokki pesii ulkoluodoilla. Talveksi ruokit muuttavat sinne missä meri ei jäädy, Euroopassa joskus jopa läntiselle Välimerelle asti. Kevätmuutto on huhti-toukokuussa, syysmuutto vaivihkaa elo-marraskuussa. Talvellakin voi nähdä ruokkeja eteläisillä merialueillamme.\n\n
+        Suomen pesimäkanta on noin 8000 paria. Euroopan kanta on 430 000-560 000 paria.\n\n
+        Ruokki pesii yhdyskunnissa jyrkillä kallioisilla rannikkoalueilla ja puuttomilla ulkoluodoilla.\n\n
+        Pääravinto on kala, jota ruokki pyydystää sukeltamalla pitkiäkin matkoja veden alla. Ruokki voi sukeltaa sadan metrin syvyyteen. Myös äyriäiset ja muut meren selkärangattomat ovat sen ravintoa.</string>
+
+    <string name="ruskosuohaukka">Ruskosuohaukka on keskikokoinen päiväpetolintulaji.\n\n
+        Ruskosuohaukka pesii suuressa osassa Eurooppaa ja Aasiaa, ja talvehtii yleensä Afrikassa. Suomessa pesii harvakseltaan Etelä-Suomessa. Suomen pesiväksi kannaksi on arvioitu 600–1 000 paria. Euroopan pesimäkanta on 26 000–35 000 paria, joista Isossa-Britanniassa noin 160. Lisäksi Venäjällä 25 000 ja Turkissa 500–5 000 paria.\n\n
+        Ruskosuohaukka syö pieniä nisäkkäitä, hyönteisiä, pikkulintuja, sisiliskoja ja vesilintuja.</string>
+
+    <string name="taivaanvuohi">Taivaanvuohia pesii Kanadassa, Yhdysvaltojen pohjoisosissa, Islannissa ja muualla Pohjois-Euroopassa sekä Venäjällä. Taivaanvuohi on muuttolintu, joka talvehtii etelässä, Euroopan linnut Etelä-Euroopassa ja Saharan eteläpuolisessa Afrikassa. Taivaanvuohet saapuvat maaliskuun lopulla ja huhtikuussa, ja lähtevät syysmuutolle heinäkuussa. Vetisillä rantaniityillä voi parhaaseen muuttoaikaan elokuussa tavata kymmenien yksilöiden hajanaisia parvia. Syysmuutto päättyy vähitellen loka–marraskuun aikana, ja muutamia yksilöitä voi jäädä yrittämään talvehtimista sulana pysyviin ojiin ja viemärien suistoihin.\n\n
+        Taivaanvuohi pesii kosteikoilla, soilla ja järvien luhtaniityillä.\n\n
+        Taivaanvuohi syö lieroja, nilviäisiä ja muita pikkueläimiä, sekä myös kasvinosia ja siemeniä.</string>
+
 </resources>

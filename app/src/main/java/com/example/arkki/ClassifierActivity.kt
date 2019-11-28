@@ -22,7 +22,6 @@ import android.graphics.Bitmap.Config
 import android.media.ImageReader.OnImageAvailableListener
 import android.media.MediaPlayer
 import android.os.SystemClock
-import android.util.Log
 import android.util.Size
 import android.util.TypedValue
 import android.view.Gravity
@@ -51,7 +50,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
     private var borderedText: BorderedText? = null
     private var infoIsShowing: Boolean = false
     private lateinit var mediaPlayer: MediaPlayer
-    private val soundList = listOf("Lapasorsa", "Punasotka", "Ristisorsa", "Ruskosuohaukka")
+    private val soundList = listOf("Lapasorsa", "Punasotka", "Ristisorsa", "Ruskosuohaukka", "Taivaanvuohi")
 
 
     protected override val layoutId: Int
@@ -62,7 +61,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
 
     public override fun onPreviewSizeChosen(size: Size, rotation: Int) {
         val textSizePx = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, resources.displayMetrics)
+            TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, resources.displayMetrics)
         borderedText = BorderedText(textSizePx)
         borderedText!!.setTypeface(Typeface.MONOSPACE)
 
@@ -81,14 +80,14 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         LOGGER.i("Initializing at size %dx%d", previewWidth, previewHeight)
         rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888)
         croppedBitmap = Bitmap.createBitmap(
-                classifier!!.imageSizeX, classifier!!.imageSizeY, Config.ARGB_8888)
+            classifier!!.imageSizeX, classifier!!.imageSizeY, Config.ARGB_8888)
 
         frameToCropTransform = ImageUtils.getTransformationMatrix(
-                previewWidth,
-                previewHeight,
-                classifier!!.imageSizeX,
-                classifier!!.imageSizeY,
-                sensorOrientation!!,
+            previewWidth,
+            previewHeight,
+            classifier!!.imageSizeX,
+            classifier!!.imageSizeY,
+            sensorOrientation!!,
             MAINTAIN_ASPECT)
 
         cropToFrameTransform = Matrix()
@@ -99,26 +98,6 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         rgbFrameBitmap!!.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight)
         val canvas = Canvas(croppedBitmap!!)
         canvas.drawBitmap(rgbFrameBitmap!!, frameToCropTransform!!, null)
-        /*
-        runInBackground {
-            if (classifier != null) {
-                val startTime = SystemClock.uptimeMillis()
-                val results = classifier!!.recognizeImage(croppedBitmap)
-                lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime
-                LOGGER.v("Detect: %s", results)
-                cropCopyBitmap = Bitmap.createBitmap(croppedBitmap!!)
-
-                runOnUiThread {
-                    showResultsInBottomSheet(results)
-                    showFrameInfo(previewWidth.toString() + "x" + previewHeight)
-                    showCropInfo(cropCopyBitmap!!.width.toString() + "x" + cropCopyBitmap!!.height)
-                    showCameraResolution(canvas.width.toString() + "x" + canvas.height)
-                    showRotationInfo(sensorOrientation.toString())
-                    showInference(lastProcessingTimeMs.toString() + "ms")
-                }
-            }
-            readyForNextImage()
-        }*/
         doAsync {
             if (classifier != null) {
                 val startTime = SystemClock.uptimeMillis()
@@ -129,16 +108,10 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
 
                 runOnUiThread {
                     showResultsInBottomSheet(results.recognitions)
-                    /*
-                    showFrameInfo(previewWidth.toString() + "x" + previewHeight)
-                    showCropInfo(cropCopyBitmap!!.width.toString() + "x" + cropCopyBitmap!!.height)
-                    showCameraResolution(canvas.width.toString() + "x" + canvas.height)
-                    showRotationInfo(sensorOrientation.toString())
-                    showInference(lastProcessingTimeMs.toString() + "ms")*/
+
                     if (results.bird != null) {
                         if (!infoIsShowing) {
                             showPopupWindow(results.bird)
-                            Log.d("dbg", "processimage")
                         }
                         infoIsShowing = true
                     }
@@ -152,11 +125,16 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
     private fun showPopupWindow(bird: String?) {
         val inflater: LayoutInflater = LayoutInflater.from(this@ClassifierActivity)
         val view = inflater.inflate(R.layout.bird_info, LinearLayout(this@ClassifierActivity))
+        val image = view.findViewById<ImageView>(R.id.ivBirdPhoto)
         val title = view.findViewById<TextView>(R.id.tvBirdName)
+        val description = view.findViewById<TextView>(R.id.tvBirdDescription)
         val btnExit = view.findViewById<Button>(R.id.buttonExit)
         val soundButton = view.findViewById<ImageView>(R.id.ivSoundButton)
         val soundId = resources.getIdentifier(bird!!.toLowerCase(), "raw", packageName)
+        val imageId = getImageId(bird)
+        image.setImageResource(imageId)
         title.text = bird
+        description.text = getDescription(bird)
         mediaPlayer = MediaPlayer()
 
         if (soundList.contains(bird)) {
@@ -168,7 +146,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         val popupWindow = PopupWindow(view, width, height, true)
 
         popupWindow.animationStyle = R.style.popup_window_animation_phone
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0,0)
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
 
         btnExit.setOnClickListener {
             popupWindow.dismiss()
@@ -178,8 +156,7 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
             if (mediaPlayer.isPlaying) {
                 mediaPlayer.reset()
                 soundButton.setImageResource(R.drawable.speaker)
-            }
-            else {
+            } else {
                 mediaPlayer = MediaPlayer.create(this, soundId)
                 mediaPlayer.start()
                 soundButton.setImageResource(R.drawable.speaker_mute)
@@ -188,12 +165,20 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
 
         popupWindow.setOnDismissListener {
             infoIsShowing = false
-            if (mediaPlayer.isPlaying){
+            if (mediaPlayer.isPlaying) {
                 mediaPlayer.stop()
                 mediaPlayer.release()
             }
         }
+    }
 
+    @SuppressLint("DefaultLocale")
+    private fun getImageId(bird: String?): Int {
+        return if (bird == "Ruisrääkkä") {
+            resources.getIdentifier("ruisraakka", "drawable", packageName)
+        } else {
+            resources.getIdentifier(bird!!.toLowerCase(), "drawable", packageName)
+        }
     }
 
     override fun onInferenceConfigurationChanged() {
@@ -218,13 +203,13 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
             LOGGER.d("Not creating classifier: GPU doesn't support quantized models.")
             runOnUiThread {
                 Toast.makeText(this, "GPU does not yet supported quantized models.", Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }
             return
         }
         try {
             LOGGER.d(
-                    "Creating classifier (model=%s, device=%s, numThreads=%d)", model, device, numThreads)
+                "Creating classifier (model=%s, device=%s, numThreads=%d)", model, device, numThreads)
             classifier = Classifier.create(this, model, device, numThreads)
         } catch (e: IOException) {
             LOGGER.e(e, "Failed to create classifier.")
@@ -238,4 +223,50 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         private val DESIRED_PREVIEW_SIZE = Size(640, 480)
         private val TEXT_SIZE_DIP = 10f
     }
+
+
+    private fun getDescription(bird: String?): String? {
+        val description: String
+        when (bird) {
+            "Harmaahaikara" -> {
+                description = getString(R.string.harmaahaikara)
+            }
+            "Kaulushaikara" -> {
+                description = getString(R.string.kaulushaikara)
+            }
+            "Kurki" -> {
+                description = getString(R.string.kurki)
+            }
+            "Lapasorsa" -> {
+                description = getString(R.string.lapasorsa)
+            }
+            "Nokikana" -> {
+                description = getString(R.string.nokikana)
+            }
+            "Punasotka" -> {
+                description = getString(R.string.punasotka)
+            }
+            "Ristisorsa" -> {
+                description = getString(R.string.ristisorsa)
+            }
+            "Ruisrääkkä" -> {
+                description = getString(R.string.ruisrääkkä)
+            }
+            "Ruokki" -> {
+                description = getString(R.string.ruokki)
+            }
+            "Ruskosuohaukka" -> {
+                description = getString(R.string.ruskosuohaukka)
+            }
+            "Taivaanvuohi" -> {
+                description = getString(R.string.taivaanvuohi)
+            }
+            else -> {
+                description = ""
+            }
+        }
+        return description
+    }
+
+
 }

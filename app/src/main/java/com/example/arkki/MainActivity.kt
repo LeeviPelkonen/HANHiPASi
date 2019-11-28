@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     customType(this, "bottom-to-up")
                 }
-
-
             }
 
             Log.d("dbg", "$it")

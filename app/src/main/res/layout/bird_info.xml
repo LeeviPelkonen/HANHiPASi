@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fjord_one"
-                android:text="Title"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="64sp" />
@@ -57,10 +57,11 @@
                 android:id="@+id/tvBirdDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/fjord_one"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at lorem ut mauris fringilla hendrerit sit amet eu ligula. Proin accumsan orci quis ipsum pharetra feugiat. Morbi placerat a purus in placerat. Sed nibh ante, commodo sit amet purus non, consectetur sollicitudin ex. Praesent dapibus enim a dolor vehicula volutpat. Nam condimentum nisl ut commodo venenatis. Integer mollis justo nisl, at dictum ipsum aliquet et. Proin imperdiet, risus id varius varius, lectus sapien aliquam quam, in ultricies ligula erat at eros. Maecenas venenatis lectus eu nunc suscipit, sed venenatis est lacinia."
+                android:text=""
                 android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
