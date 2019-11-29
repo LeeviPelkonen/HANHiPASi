@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -25,6 +26,7 @@ class InstaCameraActivity : AppCompatActivity() {
     var mCurrentPhotoPath: String = ""
     var imageFile: File? = null
     private lateinit var navigationBar: BottomNavigationView
+    private var buttonsVisible = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,8 @@ class InstaCameraActivity : AppCompatActivity() {
 
         captureButton.setOnClickListener { saveImage() }
         emojiButton.setOnClickListener { applyEmoji() }
+        plusButton.setOnClickListener { openButtons() }
+        shareButton.setOnClickListener { shareImage() }
     }
 
     private fun hasPermission(): Boolean {
@@ -86,6 +90,26 @@ class InstaCameraActivity : AppCompatActivity() {
                     .show()
             }
             requestPermissions(arrayOf(CameraActivity.PERMISSION_CAMERA), CameraActivity.PERMISSIONS_REQUEST)
+        }
+    }
+
+    fun shareImage(){
+
+    }
+
+    fun openButtons(){
+        if (buttonsVisible){
+            buttonsVisible = false
+            captureButton.visibility = View.GONE
+            emojiButton.visibility = View.GONE
+            shareButton.visibility = View.GONE
+            plusButton.setImageResource(R.drawable.ic_keyboard_arrow_right_brown_48dp)
+        }else {
+            buttonsVisible = true
+            captureButton.visibility = View.VISIBLE
+            emojiButton.visibility = View.VISIBLE
+            shareButton.visibility = View.VISIBLE
+            plusButton.setImageResource(R.drawable.ic_keyboard_arrow_left_brown_48dp)
         }
     }
 
