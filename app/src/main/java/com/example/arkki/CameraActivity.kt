@@ -110,6 +110,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
 
     protected abstract val desiredPreviewFrameSize: Size
 
+    @SuppressLint("DefaultLocale")
     override fun onCreate(savedInstanceState: Bundle?) {
         LOGGER.d("onCreate $this")
         super.onCreate(null)
@@ -463,13 +464,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
                         this@CameraActivity.onPreviewSizeChosen(size, cameraRotation)
                     }
                 },
-                /*
-                CameraConnectionFragment.ConnectionCallback { size, rotation ->
-                    previewHeight = size.height
-                    previewWidth = size.width
-                    onPreviewSizeChosen(size, rotation)
-                }
-                */
+
                 this,
                 layoutId,
                 desiredPreviewFrameSize)
@@ -481,7 +476,6 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
-        //fragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
     }
 
     private fun fillBytes(planes: Array<Plane>, yuvBytes: Array<ByteArray?>) {
@@ -505,6 +499,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
 
     @UiThread
     protected fun showResultsInBottomSheet(results: List<Recognition>?) {
+        /*
         if (results != null && results.size >= 3) {
             val recognition = results[0]
             if (recognition != null) {
@@ -530,6 +525,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
                             String.format("%.2f", 100 * recognition2.confidence!!) + "%")
             }
         }
+        */
+
     }
 
     protected fun showFrameInfo(frameInfo: String) {
@@ -616,6 +613,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
         }
     }
 
+    @SuppressLint("DefaultLocale")
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
         if (parent === modelSpinner) {
             setModel(Model.valueOf(parent.getItemAtPosition(pos).toString().toUpperCase()))

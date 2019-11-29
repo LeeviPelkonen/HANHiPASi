@@ -181,50 +181,6 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         }
     }
 
-    override fun onInferenceConfigurationChanged() {
-        if (croppedBitmap == null) {
-            // Defer creation until we're getting camera frames.
-            return
-        }
-        val device = getDevice()
-        val model = getModel()
-        val numThreads = getNumThreads()
-        //runInBackground { recreateClassifier(model, device, numThreads) }
-        doAsync { recreateClassifier(model, device, numThreads) }
-    }
-
-    private fun recreateClassifier(model: Model, device: Device, numThreads: Int) {
-        if (classifier != null) {
-            LOGGER.d("Closing classifier.")
-            classifier!!.close()
-            classifier = null
-        }
-        if (device == Device.GPU && model == Model.QUANTIZED) {
-            LOGGER.d("Not creating classifier: GPU doesn't support quantized models.")
-            runOnUiThread {
-                Toast.makeText(this, "GPU does not yet supported quantized models.", Toast.LENGTH_LONG)
-                    .show()
-            }
-            return
-        }
-        try {
-            LOGGER.d(
-                "Creating classifier (model=%s, device=%s, numThreads=%d)", model, device, numThreads)
-            classifier = Classifier.create(this, model, device, numThreads)
-        } catch (e: IOException) {
-            LOGGER.e(e, "Failed to create classifier.")
-        }
-
-    }
-
-    companion object {
-        private val LOGGER = Logger()
-        private val MAINTAIN_ASPECT = true
-        private val DESIRED_PREVIEW_SIZE = Size(640, 480)
-        private val TEXT_SIZE_DIP = 10f
-    }
-
-
     private fun getDescription(bird: String?): String? {
         val description: String
         when (bird) {
@@ -268,5 +224,47 @@ class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
         return description
     }
 
+    override fun onInferenceConfigurationChanged() {
+        if (croppedBitmap == null) {
+            // Defer creation until we're getting camera frames.
+            return
+        }
+        val device = getDevice()
+        val model = getModel()
+        val numThreads = getNumThreads()
+        //runInBackground { recreateClassifier(model, device, numThreads) }
+        doAsync { recreateClassifier(model, device, numThreads) }
+    }
+
+    private fun recreateClassifier(model: Model, device: Device, numThreads: Int) {
+        if (classifier != null) {
+            LOGGER.d("Closing classifier.")
+            classifier!!.close()
+            classifier = null
+        }
+        if (device == Device.GPU && model == Model.QUANTIZED) {
+            LOGGER.d("Not creating classifier: GPU doesn't support quantized models.")
+            runOnUiThread {
+                Toast.makeText(this, "GPU does not yet supported quantized models.", Toast.LENGTH_LONG)
+                    .show()
+            }
+            return
+        }
+        try {
+            LOGGER.d(
+                "Creating classifier (model=%s, device=%s, numThreads=%d)", model, device, numThreads)
+            classifier = Classifier.create(this, model, device, numThreads)
+        } catch (e: IOException) {
+            LOGGER.e(e, "Failed to create classifier.")
+        }
+
+    }
+
+    companion object {
+        private val LOGGER = Logger()
+        private val MAINTAIN_ASPECT = true
+        private val DESIRED_PREVIEW_SIZE = Size(640, 480)
+        private val TEXT_SIZE_DIP = 10f
+    }
 
 }
