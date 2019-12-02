@@ -4,10 +4,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/insta_camera_layout"
     android:background="@color/colorPrimaryDark">
 
 
     <ImageButton
+        android:elevation="2dp"
         android:id="@+id/plusButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -19,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:padding="4dp"
         android:id="@+id/emojiButton"
         android:visibility="gone"
         android:layout_width="70dp"
@@ -26,12 +29,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/button_rounded"
-        android:text="Emoji"
+        android:text="Lisää lintu"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/plusButton" />
 
     <Button
+        android:padding="4dp"
         android:id="@+id/captureButton"
         android:visibility="gone"
         android:layout_width="70dp"
@@ -39,12 +43,13 @@
         android:layout_marginStart="12dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/button_rounded"
-        android:text="take image"
+        android:text="Ota kuva"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/emojiButton" />
 
     <Button
+        android:padding="4dp"
         android:id="@+id/shareButton"
         android:visibility="gone"
         android:layout_width="70dp"
@@ -52,7 +57,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/button_rounded"
-        android:text="Share image"
+        android:text="Jaa kuva"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/captureButton" />

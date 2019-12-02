@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name="com.example.arkki.InstaCameraActivity"
+            android:name="com.example.arkki.instacamera.InstaCameraActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

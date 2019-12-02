@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.arkki.instacamera.InstaCameraActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import maes.tech.intentanim.CustomIntent.customType
 import org.tensorflow.lite.examples.classification.R
