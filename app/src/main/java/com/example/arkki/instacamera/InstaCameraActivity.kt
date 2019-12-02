@@ -16,6 +16,7 @@ import android.transition.TransitionManager
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -28,6 +29,8 @@ import com.example.arkki.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_insta_camera.*
 import maes.tech.intentanim.CustomIntent
+import org.jetbrains.anko.image
+import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.toast
 import org.tensorflow.lite.examples.classification.R
 import java.io.*
@@ -36,6 +39,7 @@ import java.io.*
 class InstaCameraActivity : AppCompatActivity() {
 
     val REQUEST_IMAGE_CAPTURE = 1
+    var mCurrentSticker: Int = 0
     var mCurrentPhotoPath: String = ""
     var imageFile: File? = null
     private lateinit var navigationBar: BottomNavigationView
@@ -43,6 +47,10 @@ class InstaCameraActivity : AppCompatActivity() {
     var firstImage : Bitmap? = null
     var secondImage: Bitmap? = null
     var imageTaken = false
+    var xCord = 0f
+    var yCord = 0f
+    //var xVal = 1f
+    //var yVal = 1f
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,19 +95,44 @@ class InstaCameraActivity : AppCompatActivity() {
         emojiButton.setOnClickListener { popUp() }
         plusButton.setOnClickListener { openButtons() }
         shareButton.setOnClickListener { shareImage() }
+
+        //moving the sticker
+        stickerImageView.setOnTouchListener { v, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    xCord = stickerImageView.x - event.rawX
+                    yCord = stickerImageView.y - event.rawY
+                    Log.d("testing", "--------------------------------")
+                    Log.d("testing", "x = $xCord")
+                    Log.d("testing", "y = $yCord")
+                    return@setOnTouchListener true
+                }
+                MotionEvent.ACTION_UP -> {
+                    Log.d("testing","Action up")
+                    stickerImageView.animate().x(event.rawX + xCord).y(event.rawY + yCord)
+                    return@setOnTouchListener true
+                }
+
+            }
+            v?.onTouchEvent(event) ?: true
+        }
     }
 
     //draws the bitmaps on top of each other
     private fun applyBirdToImage(firstImage: Bitmap, secondImagePath: Int): Bitmap? {
         val secondImage = BitmapFactory.decodeResource(applicationContext.resources, secondImagePath)
+        var xVal = secondImage.width / firstImage.width.toFloat() //try with screen width
+        var yVal = secondImage.height / firstImage.height.toFloat()
+        yVal = 0.15f
         val result = Bitmap.createBitmap(firstImage.width, firstImage.height, firstImage.config)
         val canvas = Canvas(result)
         canvas.drawBitmap(firstImage, 0f, 0f, null)
-        canvas.drawBitmap(secondImage, 50f, 50f, null)
+        canvas.drawBitmap(secondImage, (stickerImageView.x / xVal +(secondImage.width * xVal)), (stickerImageView.y / xVal +(secondImage.height * xVal)), null)
+        Log.d("testing", "x = " + -stickerImageView.x + "  width = " + secondImage.width + "  xVal = " + stickerImageView.measuredWidth)
+        Log.d("testing", "y = " + -stickerImageView.y + "  height = " + secondImage.height + "  XVal = " + xVal)
         return result
     }
-
-
+    
     private fun hasPermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkSelfPermission(CameraActivity.PERMISSION_CAMERA) == PackageManager.PERMISSION_GRANTED
@@ -123,6 +156,29 @@ class InstaCameraActivity : AppCompatActivity() {
 
     private fun shareImage(){
         if(imageFile != null){
+            if(mCurrentSticker != 0){
+                val image = applyBirdToImage(firstImage!!,mCurrentSticker)
+                val fileName = "temp_photo"
+                val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                val file = File.createTempFile(fileName, ".jpg", imgPath )
+
+                try {
+                    // Get the file output stream
+                    val stream: OutputStream = FileOutputStream(file)
+
+                    // Compress the bitmap
+                    image!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+                    stream.flush()
+                    stream.close()
+                } catch (e: IOException){ // Catch the exception
+                    e.printStackTrace()
+                }
+                imageFile = file
+                mCurrentPhotoPath = file.absolutePath
+                val imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
+                imageView.setImageBitmap(imageBitmap)
+            }
             val bmpUri = FileProvider.getUriForFile(this, "org.tensorflow.lite.examples.classification.fileprovider", imageFile!!)
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
@@ -152,31 +208,8 @@ class InstaCameraActivity : AppCompatActivity() {
     }
 
     fun applyImage(img:Int){
-        if(imageTaken){
-            val image = applyBirdToImage(firstImage!!,img)
-            val fileName = "temp_photo"
-            val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val file = File.createTempFile(fileName, ".jpg", imgPath )
-
-            try {
-                // Get the file output stream
-                val stream: OutputStream = FileOutputStream(file)
-
-                // Compress the bitmap
-                image!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-
-                stream.flush()
-                stream.close()
-            } catch (e: IOException){ // Catch the exception
-                e.printStackTrace()
-            }
-            imageFile = file
-            mCurrentPhotoPath = file.absolutePath
-            val imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
-            imageView.setImageBitmap(imageBitmap)
-        }else{
-            toast("ota ensin valokuva")
-        }
+        mCurrentSticker = img
+        stickerImageView.setImageResource(img)
     }
 
     private fun saveImage(){
