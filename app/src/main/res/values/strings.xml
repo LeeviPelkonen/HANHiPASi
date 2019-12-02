@@ -71,8 +71,21 @@
         Taivaanvuohi pesii kosteikoilla, soilla ja järvien luhtaniityillä.\n\n
         Taivaanvuohi syö lieroja, nilviäisiä ja muita pikkueläimiä, sekä myös kasvinosia ja siemeniä.</string>
 
+
     <string name="QuestionNumber">%1$d/%2$d</string>
     <string name="pahus">Pahus, vastauksistasi meni oikein vain %1$d%%</string>
     <string name="jippii">Jippii! vastasit %1$d%% oikein!</string>
+
+    <string name="game_name">Bird Game</string>
+    <string name="highscore">High-score:</string>
+    <string name="start">Start</string>
+    <string name="quit">Quit</string>
+    <string name="bird1">Bird 1</string>
+    <string name="bird2">Bird 2</string>
+    <string name="bird3">Bird 3</string>
+    <string name="bird4">Bird 4</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="time_up">Time is up</string>
+
 
 </resources>
