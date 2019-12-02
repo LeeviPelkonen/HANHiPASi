@@ -71,4 +71,8 @@
         Taivaanvuohi pesii kosteikoilla, soilla ja järvien luhtaniityillä.\n\n
         Taivaanvuohi syö lieroja, nilviäisiä ja muita pikkueläimiä, sekä myös kasvinosia ja siemeniä.</string>
 
+    <string name="QuestionNumber">%1$d/%2$d</string>
+    <string name="pahus">Pahus, vastauksistasi meni oikein vain %1$d%%</string>
+    <string name="jippii">Jippii! vastasit %1$d%% oikein!</string>
+
 </resources>

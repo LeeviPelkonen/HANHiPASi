@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 "Trivia" -> {
                     Log.d("dbg", "trivia")
+                    val intent = Intent(this, QuestionnaireActivity::class.java)
+                    startActivity(intent)
+                    customType(this, "bottom-to-up")
                 }
                 "Kamera" -> {
                     Log.d("dbg", "kamera123")
