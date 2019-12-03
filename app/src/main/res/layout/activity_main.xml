@@ -25,6 +25,12 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteY="675dp">
 
+        <Button
+            android:id="@+id/button_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_whatsapp" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
@@ -32,6 +38,7 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/home_bg"
             android:contentDescription="background image" />
+
     </FrameLayout>
 
     <TextView

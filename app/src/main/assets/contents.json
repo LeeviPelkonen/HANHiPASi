@@ -1,0 +1,32 @@
+{
+  "android_play_store_link": "",
+  "ios_app_store_link": "",
+  "sticker_packs": [
+    {
+      "identifier": "1",
+      "name": "Luontoarkki",
+      "publisher": "HANHiPASi",
+      "tray_image_file": "logo.webp",
+      "image_data_version":"1",
+      "avoid_cache":false,
+      "publisher_email":"",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "kisse.webp",
+          "emojis": ["☕","🙂"]
+        },
+        {
+          "image_file": "norsu.webp",
+          "emojis": ["😄","😀"]
+        },
+        {
+          "image_file": "vauva.webp",
+          "emojis": ["😆","😂"]
+        }
+      ]
+    }
+  ]
+}

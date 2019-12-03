@@ -70,5 +70,12 @@
 
         </provider>
 
+        <provider
+            android:name="com.example.arkki.stickers.StickerContentProvider"
+            android:authorities="${contentProviderAuthority}"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.whatsapp.sticker.READ" />
+
     </application>
 </manifest>
