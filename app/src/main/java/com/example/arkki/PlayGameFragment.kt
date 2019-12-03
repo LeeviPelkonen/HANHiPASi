@@ -109,7 +109,7 @@ class PlayGameFragment : Fragment() {
 
     // Change the current bird that gives points
     private fun changeCurrentBird(): String {
-        val birds = arrayOf("bird1", "bird2", "bird3", "bird4")
+        val birds = arrayOf("Punasotka", "Ristisorsa", "Nokikana", "Lapasorsa")
         val randomIndex = Random().nextInt(birds.size)
         birdToLookFor = birds[randomIndex]
         Log.d("xdlsd", "CurrentBird to look for changed")
@@ -119,10 +119,10 @@ class PlayGameFragment : Fragment() {
     // Give points if the player presses the right bird
     private fun giveScore(clickedBird: String, clickedImageTag: ImageView) {
         val birdNameID = mapOf(
-            "bird1" to 0,
-            "bird2" to 1,
-            "bird3" to 2,
-            "bird4" to 3
+            "Punasotka" to 0,
+            "Ristisorsa" to 1,
+            "Nokikana" to 2,
+            "Lapasorsa" to 3
         )
 
         if (birdNameID[clickedBird] === clickedImageTag.tag) {
