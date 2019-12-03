@@ -40,33 +40,32 @@ class WordFragment(private val question: Question) : Fragment() {
         buttonList.add(view.answerD)
 
         setupClickListeners(view)
-        setupAnimator()
-        //outAnimation(view)
+        setupAnimator(view)
 
         return view
     }
 
     private fun setupClickListeners(v: View) {
         v.answerA.setOnClickListener {
-            outAnimation()
+            outAnimation(v)
             Handler().postDelayed({
                 onButtonPressed(question.correctAnswer(v.textA.text.toString()))
             }, 500)
         }
         v.answerB.setOnClickListener {
-            outAnimation()
+            outAnimation(v)
             Handler().postDelayed({
                 onButtonPressed(question.correctAnswer(v.textB.text.toString()))
             }, 500)
         }
         v.answerC.setOnClickListener {
-            outAnimation()
+            outAnimation(v)
             Handler().postDelayed({
                 onButtonPressed(question.correctAnswer(v.textC.text.toString()))
             }, 500)
         }
         v.answerD.setOnClickListener {
-            outAnimation()
+            outAnimation(v)
 
             Handler().postDelayed({
                 onButtonPressed(question.correctAnswer(v.textD.text.toString()))
@@ -74,19 +73,22 @@ class WordFragment(private val question: Question) : Fragment() {
         }
     }
 
-    private fun setupAnimator() {
+    private fun setupAnimator(v: View) {
         inAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_left_to_right)
         buttonList.forEach {
             it.visibility = View.VISIBLE
             it.startAnimation(inAnimation)
         }
+        v.questionTitle.startAnimation(inAnimation)
+
     }
 
-    private fun outAnimation() {
+    private fun outAnimation(v: View) {
         outAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_away_right)
         buttonList.forEach {
             it.startAnimation(outAnimation)
         }
+        v.questionTitle.startAnimation(outAnimation)
     }
 
     private fun onButtonPressed(correct: Boolean) {

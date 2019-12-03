@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.arkki.instacamera.InstaCameraActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import maes.tech.intentanim.CustomIntent.customType
 import org.tensorflow.lite.examples.classification.R
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         navigationBar = findViewById(R.id.bottomNavigationView)
         navigationBar.setOnNavigationItemSelectedListener {
@@ -28,6 +31,8 @@ class MainActivity : AppCompatActivity() {
                     customType(this, "bottom-to-up")
                 }
                 "Peli" -> {
+                    val intent = Intent(this, BirdGame::class.java)
+                    startActivity(intent)
                     Log.d("dbg", "peli")
                 }
                 "Trivia" -> {

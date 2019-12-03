@@ -12,6 +12,7 @@ import com.example.arkki.Questionnaire.QuizPictureFragment
 import com.example.arkki.Questionnaire.Type
 import com.example.arkki.Questionnaire.WordFragment
 import kotlinx.android.synthetic.main.activity_questionnaire.*
+import maes.tech.intentanim.CustomIntent
 import org.tensorflow.lite.examples.classification.R
 
 interface OnFragmentInteractionListener {
@@ -49,7 +50,6 @@ class QuestionnaireActivity : AppCompatActivity(), OnFragmentInteractionListener
             start()
         }
         nextQuestion()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,31 +57,24 @@ class QuestionnaireActivity : AppCompatActivity(), OnFragmentInteractionListener
         setContentView(R.layout.activity_questionnaire)
 
 
-        val q = Question(Type.TEXT, "#234234", "Kuinka monta kissaeläintä museossa on esillä?", mutableListOf("3", "5", "4", "2"), "no", "4")
-        val a = Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Kurki", "Tiainen", "Punarinta", "Haukka"), "no", "Haukka")
-        val b = Question(Type.TEXT, "#234234", "Kuinka monta hammasta löytyy karhun suusta?", mutableListOf("24", "14", "16", "32"), "no", "32")
-        val d = Question(Type.IMAGE, "#234234", "Mikä nisäkäs löytyy kuvasta?", mutableListOf("Ilves", "Tiikeri", "Karhu", "Susi"), "no", "Ilves")
-        list.add(q)
-        list.add(a)
-        list.add(b)
-        list.add(d)
+
+        list.add(Question(Type.TEXT, "#234234", "Harmaahaikara pyydystää pääasiassa:", mutableListOf("Matoja ja toukkia", "Kaloja ja sammakoita", "Pikkulintuja", "Leijonia"), "no", "Kaloja ja sammakoita"))
+        list.add(Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Kurki", "Ristisorsa", "Punasotka", "Punarinta"), "punasotka", "Punasotka"))
+
+        list.add(Question(Type.TEXT, "#234234", "Kaulushaikaran huuto muistuttaa eniten:", mutableListOf("Kiljumista", "Torven soittoa", "Pulloon puhaltamista", "Ulvontaa"), "no", "Pulloon puhaltamista"))
+        list.add(Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Lapasorsa", "Punasotka", "Ristisorsa", "Taivaanvuohi"), "ristisorsa", "Ristisorsa"))
+
+        list.add(Question(Type.TEXT, "#234234", "Harmaahaikarat aiheuttavat eniten harmia:", mutableListOf("Maanviljelijöille", "Kalaviljelijöille", "Metsästäjille", "Sukeltajille"), "no", "Kalaviljelijöille"))
+        list.add(Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Ruisrääkkä", "Ruskosuohaukka", "Kurki", "Harmaahaikara"), "ruskosuohaukka", "Ruskosuohaukka"))
+
+        list.add(Question(Type.TEXT, "#234234", "Missä maastossa nokikana viihtyy?", mutableListOf("Vesistöissä", "Puiden latvoissa", "Heinikossa", "Hiekkarannoilla"), "no", "Vesistöissä"))
+        list.add(Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Taivaanvuohi", "Ruokki", "Nokikana", "Kaulushaikara"), "taivaanvuohi", "Taivaanvuohi"))
+
         questionNumberLabel.text = getString(R.string.QuestionNumber, questionNumber, list.size)
 
         nextQuestion()
 
     }
-
-//    private fun setupAnimators() {
-//        valueAnimator = ValueAnimator.ofFloat(scoreText.textSize, (scoreText.textSize * 1.4).toFloat()).apply {
-//            duration = 300
-//            repeatCount = 1
-//            repeatMode = ValueAnimator.REVERSE
-//            addUpdateListener {
-//                val value = it.animatedValue as Float
-//                scoreText.textSize = value
-//            }
-//        }
-//    }
 
     private fun nextQuestion() {
         try {
@@ -97,7 +90,6 @@ class QuestionnaireActivity : AppCompatActivity(), OnFragmentInteractionListener
         } catch (e: IndexOutOfBoundsException) {
             showScore()
         }
-
     }
 
     private fun showScore() {
