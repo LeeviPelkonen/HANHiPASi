@@ -13,21 +13,22 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.DisplayMetrics
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.graphics.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.arkki.CameraActivity
-import com.example.arkki.MainActivity
+import com.example.arkki.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_insta_camera.*
 import maes.tech.intentanim.CustomIntent
+import org.jetbrains.anko.image
+import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.toast
 import org.tensorflow.lite.examples.classification.R
 import java.io.*
@@ -35,19 +36,29 @@ import java.io.*
 
 class InstaCameraActivity : AppCompatActivity() {
 
-    val REQUEST_IMAGE_CAPTURE = 1
-    var mCurrentPhotoPath: String = ""
-    var imageFile: File? = null
+    private val REQUEST_IMAGE_CAPTURE = 1
+    private var mCurrentSticker: Int = 0
+    private var mCurrentPhotoPath: String = ""
+    private var imageFile: File? = null
     private lateinit var navigationBar: BottomNavigationView
     private var buttonsVisible = false
-    var firstImage : Bitmap? = null
-    var secondImage: Bitmap? = null
-    var imageTaken = false
+    private var firstImage : Bitmap? = null
+    private var secondImage: Bitmap? = null
+    private var imageTaken = false
+    private var xCord = 0f
+    private var yCord = 0f
+    private var xScreen = 0
+    private var yScreen = 0
+    private var xSticker = 0
+    private var ySticker = 0
+    private lateinit var popupWindow: PopupWindow
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insta_camera)
+        getPixelSize()
 
         navigationBar = findViewById(R.id.bottomNavigationView)
         navigationBar.setOnNavigationItemSelectedListener {
@@ -58,13 +69,20 @@ class InstaCameraActivity : AppCompatActivity() {
                     CustomIntent.customType(this, "up-to-bottom")
                 }
                 "Linnut" -> {
-                    Log.d("dbg", "linnut")
+                    val intent = Intent(this, ClassifierActivity::class.java)
+                    startActivity(intent)
+                    CustomIntent.customType(this, "up-to-bottom")
                 }
                 "Peli" -> {
-                    Log.d("dbg", "peli")
+                    val intent = Intent(this, BirdGame::class.java)
+                    startActivity(intent)
+                    CustomIntent.customType(this, "up-to-bottom")
                 }
                 "Trivia" -> {
                     Log.d("dbg", "trivia")
+                    val intent = Intent(this, QuestionnaireActivity::class.java)
+                    startActivity(intent)
+                    CustomIntent.customType(this, "up-to-bottom")
                 }
                 "Kamera" -> {
                     Log.d("dbg", "kamera")
@@ -87,19 +105,60 @@ class InstaCameraActivity : AppCompatActivity() {
         emojiButton.setOnClickListener { popUp() }
         plusButton.setOnClickListener { openButtons() }
         shareButton.setOnClickListener { shareImage() }
+
+        //tracking the movement for the sticker
+        imageView.setOnTouchListener { v, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    /*
+                    calculating the stickers location
+                    the middle of the sticker               (xSticker / 2)
+                    the ratio of image to screen size       (firstImage!!.width.toFloat()) / xScreen)
+                    taking raw input for the movement        event.rawX
+                    */
+                    xCord = (event.rawX * (firstImage!!.width.toFloat()) / xScreen) - (xSticker/2)
+                    yCord = (event.rawY * (firstImage!!.height.toFloat()) / yScreen) - (ySticker/2)
+                    return@setOnTouchListener true
+                }
+                MotionEvent.ACTION_UP -> {
+                    if(imageTaken){
+                        saveStickerImage(mCurrentSticker)
+                    }
+                    return@setOnTouchListener true
+                }
+            }
+            v?.onTouchEvent(event) ?: true
+        }
     }
 
     //draws the bitmaps on top of each other
+    //firstImage = camera image, secondImage = sticker
     private fun applyBirdToImage(firstImage: Bitmap, secondImagePath: Int): Bitmap? {
         val secondImage = BitmapFactory.decodeResource(applicationContext.resources, secondImagePath)
+
+        /*
+        calculating the stickers location
+        taking the size of the sticker                       secondImage.width
+        scaling to size of the first image on screen        ((firstImage!!.width.toFloat()) / xScreen)
+        */
+        xSticker = (secondImage.width / 2 * (firstImage!!.width.toFloat()) / xScreen).toInt()
+        ySticker = (secondImage.height / 2 * (firstImage!!.height.toFloat()) / yScreen).toInt()
         val result = Bitmap.createBitmap(firstImage.width, firstImage.height, firstImage.config)
         val canvas = Canvas(result)
         canvas.drawBitmap(firstImage, 0f, 0f, null)
-        canvas.drawBitmap(secondImage, 50f, 50f, null)
+        canvas.drawBitmap(secondImage, xCord, yCord, null)
         return result
     }
 
-
+    private fun getPixelSize(){
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        xScreen = displayMetrics.widthPixels
+        yScreen = displayMetrics.heightPixels
+        xCord = xScreen / 2f
+        yCord = yScreen / 2f
+    }
+    
     private fun hasPermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkSelfPermission(CameraActivity.PERMISSION_CAMERA) == PackageManager.PERMISSION_GRANTED
@@ -113,7 +172,7 @@ class InstaCameraActivity : AppCompatActivity() {
             if (shouldShowRequestPermissionRationale(CameraActivity.PERMISSION_CAMERA)) {
                 Toast.makeText(
                     this,
-                    "Camera permission is required for this demo",
+                    "Kameran käyttöoikeus vaaditaan sovellusta varten.",
                     Toast.LENGTH_LONG)
                     .show()
             }
@@ -121,17 +180,21 @@ class InstaCameraActivity : AppCompatActivity() {
         }
     }
 
+    //sharing the image to selected media source
     private fun shareImage(){
-        if(imageFile != null){
+        if(imageTaken){
             val bmpUri = FileProvider.getUriForFile(this, "org.tensorflow.lite.examples.classification.fileprovider", imageFile!!)
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_STREAM, bmpUri)
             intent.type = "image/jpeg"
-
             startActivity(Intent.createChooser(intent,"Jaa kuva"))
         }else{
-            Log.d("testing","imagefile is null!")
+            Toast.makeText(
+                this,
+                "Ota kuva ensin",
+                Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -151,34 +214,48 @@ class InstaCameraActivity : AppCompatActivity() {
         }
     }
 
+    //applying sticker to the picture
     fun applyImage(img:Int){
+        popupWindow.dismiss()
+        mCurrentSticker = img
         if(imageTaken){
-            val image = applyBirdToImage(firstImage!!,img)
-            val fileName = "temp_photo"
-            val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val file = File.createTempFile(fileName, ".jpg", imgPath )
-
-            try {
-                // Get the file output stream
-                val stream: OutputStream = FileOutputStream(file)
-
-                // Compress the bitmap
-                image!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-
-                stream.flush()
-                stream.close()
-            } catch (e: IOException){ // Catch the exception
-                e.printStackTrace()
-            }
-            imageFile = file
-            mCurrentPhotoPath = file.absolutePath
-            val imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
-            imageView.setImageBitmap(imageBitmap)
+            Log.d("testing","applying bird")
+            saveStickerImage(img)
         }else{
-            toast("ota ensin valokuva")
+            Toast.makeText(
+                this,
+                "Ota kuva ensin",
+                Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
+    //getting image with sticker and saving it
+    private fun saveStickerImage(img: Int){
+        val image = applyBirdToImage(firstImage!!,img)
+        val fileName = "temp_photo"
+        val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val file = File.createTempFile(fileName, ".jpg", imgPath )
+
+        try {
+            // Get the file output stream
+            val stream: OutputStream = FileOutputStream(file)
+
+            // Compress the bitmap
+            image!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+            stream.flush()
+            stream.close()
+        } catch (e: IOException){ // Catch the exception
+            e.printStackTrace()
+        }
+        imageFile = file
+        mCurrentPhotoPath = file.absolutePath
+        val imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
+        imageView.setImageBitmap(imageBitmap)
+    }
+
+    //taking and saving the image
     private fun saveImage(){
         val fileName = "temp_photo"
         val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -198,53 +275,39 @@ class InstaCameraActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun popUp(){
-        // Initialize a new layout inflater instance
         val inflater: LayoutInflater = layoutInflater
-
-        // Inflate a custom view using layout inflater
         val view = inflater.inflate(R.layout.popup_insta_camera,null)
 
-        // Initialize a new instance of popup window
-        val popupWindow = PopupWindow(
-            view, // Custom view to show in popup window
-            LinearLayout.LayoutParams.MATCH_PARENT, // Width of popup window
-            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+        popupWindow = PopupWindow(
+            view,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
         )
 
-        // Set an elevation for the popup window
         popupWindow.elevation = 10.0F
-        // Create a new slide animation for popup window enter transition
         val slideIn = Slide()
         slideIn.slideEdge = Gravity.TOP
         popupWindow.enterTransition = slideIn
 
-        // Slide animation for popup window exit transition
         val slideOut = Slide()
         slideOut.slideEdge = Gravity.END
         popupWindow.exitTransition = slideOut
 
-
-        // Get the widgets reference from custom view
         val recyclerM = view.findViewById<RecyclerView>(R.id.recyclerMain)
-
         recyclerM.layoutManager = LinearLayoutManager(this)
 
         val itemList = mutableListOf<Bird>()
         itemList.add(Bird(R.drawable.bird_temp,"Lintu"))
-        itemList.add(Bird(R.drawable.bird_temp,"Lintu2"))
-        itemList.add(Bird(R.drawable.bird_temp,"Lintu3"))
-        itemList.add(Bird(R.drawable.bird_temp,"Lintu4"))
+        itemList.add(Bird(R.drawable.chiken,"Kana"))
+        itemList.add(Bird(R.drawable.bird_temp,"Lintu"))
+        itemList.add(Bird(R.drawable.chiken,"Kana"))
         recyclerM.adapter = InstaCameraAdapter(itemList,this)
 
         view.setOnClickListener {
             popupWindow.dismiss()
         }
-        recyclerM.setOnClickListener {
-            popupWindow.dismiss()
-        }
 
-
-        // Finally, show the popup window on app
+        // show the popup window on app
         TransitionManager.beginDelayedTransition(insta_camera_layout)
         popupWindow.showAtLocation(
             insta_camera_layout, // Location to display popup window

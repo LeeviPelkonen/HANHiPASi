@@ -30,9 +30,9 @@ class InstaCameraAdapter(private val itemList: List<Bird>,private val instaCamer
         holder.itemView.setOnClickListener {
             //Log.d("qwerty",position.toString())
             if(position == 0){instaCameraActivity.applyImage(R.drawable.bird_temp)}
-            if(position == 1){instaCameraActivity.applyImage(R.drawable.bird_temp)}
+            if(position == 1){instaCameraActivity.applyImage(R.drawable.chiken)}
             if(position == 2){instaCameraActivity.applyImage(R.drawable.bird_temp)}
-            if(position == 3){instaCameraActivity.applyImage(R.drawable.bird_temp)}
+            if(position == 3){instaCameraActivity.applyImage(R.drawable.chiken)}
         }
     }
 }

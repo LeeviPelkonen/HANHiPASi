@@ -7,6 +7,13 @@
     android:id="@+id/insta_camera_layout"
     android:background="@color/colorPrimaryDark">
 
+    <ImageView
+        android:elevation="2dp"
+        android:id="@+id/stickerImageView"
+        android:layout_width="235dp"
+        android:layout_height="235dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:elevation="2dp"
@@ -29,7 +36,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/button_rounded"
-        android:text="Lisää lintu"
+        android:text="Tarrat"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/plusButton" />
