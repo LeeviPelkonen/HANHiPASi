@@ -23,6 +23,7 @@ class PlayGameFragment : Fragment() {
     var score = 0
     val gridList = arrayListOf<ImageView>()
     var birdToLookFor = ""
+    lateinit var countDownTime: CountDownTimer
 
 
     override fun onCreateView(
@@ -56,7 +57,6 @@ class PlayGameFragment : Fragment() {
             changePictures(r)
         }
 
-
         for (i in gridList) {
             i.isClickable
             i.setOnClickListener {
@@ -73,26 +73,10 @@ class PlayGameFragment : Fragment() {
 
 
         // Timer that ticks down as the player plays
-        fun performTick(millisUntilFinished: Long) {
-            timer?.text = (((millisUntilFinished * 0.001f).roundToInt()).toString())
-        }
+        countDownTime = createTimer(timer, curBird).start()
 
-        val cTimer = object : CountDownTimer(30000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                performTick(millisUntilFinished)
-                timer?.text = "Time left: " + time.toString()
-                time--
-            }
 
-            override fun onFinish() {
-                timer?.text = getString(R.string.time_up)
-                for (i in gridList) {
-                    i.isClickable = false
-                }
-                curBird?.text = ""
-            }
-        }.start()
-        performTick(30000)
+        performTick(30000, timer)
     }
 
     //Change pictures shown for the player
@@ -133,6 +117,36 @@ class PlayGameFragment : Fragment() {
         if (birdNameID[clickedBird] === clickedImageTag.tag) {
             score++
             Log.d("score", "Bird was: $clickedBird, and clickedImage was ${clickedImageTag.tag} score is now: $score")
+        }
+    }
+
+    private fun performTick(millisUntilFinished: Long, timer: TextView?) {
+        timer?.text = (((millisUntilFinished * 0.001f).roundToInt()).toString())
+    }
+
+    private fun createTimer(timer: TextView?, curBird: TextView?): CountDownTimer {
+        val cTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                performTick(millisUntilFinished, timer)
+                timer?.text = "Time left: " + time.toString()
+                time--
+            }
+
+            override fun onFinish() {
+                timer?.text = getString(R.string.time_up)
+                for (i in gridList) {
+                    i.isClickable = false
+                }
+                curBird?.text = ""
+            }
+        }
+        return cTimer
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (countDownTime != null) {
+            countDownTime.cancel()
         }
     }
 }

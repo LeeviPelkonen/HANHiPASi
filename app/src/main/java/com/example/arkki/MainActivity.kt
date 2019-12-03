@@ -1,9 +1,9 @@
 package com.example.arkki
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.arkki.instacamera.InstaCameraActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import maes.tech.intentanim.CustomIntent.customType
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
 
             return@setOnNavigationItemSelectedListener true
         }
-
     }
 
     override fun onResume() {
         super.onResume()
         navigationBar.selectedItemId = R.id.action_home
     }
+
 }
