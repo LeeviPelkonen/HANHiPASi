@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import java.lang.Exception
@@ -20,6 +21,8 @@ class PlayGameFragment : Fragment() {
 
     var time = 30
     var score = 0
+    val gridList = arrayListOf<ImageView>()
+    var birdToLookFor = ""
 
 
     override fun onCreateView(
@@ -34,70 +37,31 @@ class PlayGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Here are all ImageViews in the existing grid
-        val firstGrid = activity?.findViewById<ImageView>(R.id.game_img_1)
-        val grid2 = activity?.findViewById<ImageView>(R.id.game_img_2)
-        val grid3 = activity?.findViewById<ImageView>(R.id.game_img_3)
-        val grid4 = activity?.findViewById<ImageView>(R.id.game_img_4)
-        val grid5 = activity?.findViewById<ImageView>(R.id.game_img_5)
-        val grid6 = activity?.findViewById<ImageView>(R.id.game_img_6)
-        val grid7 = activity?.findViewById<ImageView>(R.id.game_img_7)
-        val grid8 = activity?.findViewById<ImageView>(R.id.game_img_8)
-        val grid9 = activity?.findViewById<ImageView>(R.id.game_img_9)
-        val grid10 = activity?.findViewById<ImageView>(R.id.game_img_10)
-        val grid11 = activity?.findViewById<ImageView>(R.id.game_img_11)
-        val grid12 = activity?.findViewById<ImageView>(R.id.game_img_12)
-        val grid13 = activity?.findViewById<ImageView>(R.id.game_img_13)
-        val grid14 = activity?.findViewById<ImageView>(R.id.game_img_14)
-        val grid15 = activity?.findViewById<ImageView>(R.id.game_img_15)
-        val grid16 = activity?.findViewById<ImageView>(R.id.game_img_16)
-        val allGrids = arrayOf(
-            firstGrid,
-            grid2,
-            grid3,
-            grid4,
-            grid5,
-            grid6,
-            grid7,
-            grid8,
-            grid9,
-            grid10,
-            grid11,
-            grid12,
-            grid13,
-            grid14,
-            grid15,
-            grid16
-        )
-
+        val wholeGrid = activity?.findViewById<GridLayout>(R.id.imageGrid)
         val timer = activity?.findViewById<TextView>(R.id.timer)
         val scoreText = activity?.findViewById<TextView>(R.id.score)
         scoreText?.text = score.toString()
         val curBird = activity?.findViewById<TextView>(R.id.currentBird)
-        val birdVal = mapOf<Int?,Int?>(
-            0 to 0,
-            1 to 1,
-            2 to 2,
-            3 to 3
-        )
 
-        for (r in allGrids) {
-            if(r != null) {
-                changePictures(r)
-            }
+        for (index in 0 until (wholeGrid)!!.childCount)
+        {
+            val nextChild = (wholeGrid).getChildAt(index) as ImageView
+            gridList.add(nextChild)
+
         }
+        Log.d("xdlsd", gridList.toString())
 
 
-        for (i in allGrids) {
-            i?.isClickable
-            i?.setOnClickListener {
-                giveScore(curBird?.text.toString(), 0)
+        for (i in gridList) {
+            i.isClickable
+            i.setOnClickListener {
+                giveScore(birdToLookFor, i)
                 curBird?.text = changeCurrentBird()
-                for (e in allGrids) {
-                    if (e != null) {
-                        changePictures(e)
-                    }
+                scoreText?.text = "Score: " + score.toString()
+                for (e in gridList) {
+                    changePictures(e)
                 }
-                scoreText?.text = score.toString()
+                Log.d("xdlsd", i.tag.toString())
             }
 
         }
@@ -111,14 +75,14 @@ class PlayGameFragment : Fragment() {
         val cTimer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 performTick(millisUntilFinished)
-                timer?.text = time.toString()
+                timer?.text = "Time left: " + time.toString()
                 time--
             }
 
             override fun onFinish() {
                 timer?.text = getString(R.string.time_up)
-                for (i in allGrids) {
-                    i?.isClickable = false
+                for (i in gridList) {
+                    i.isClickable = false
                 }
                 curBird?.text = ""
             }
@@ -127,41 +91,43 @@ class PlayGameFragment : Fragment() {
     }
 
     //Change pictures shown for the player
-    private fun changePictures(img: ImageView): Int {
+    private fun changePictures(img: ImageView) {
         val imageArray: TypedArray = resources.obtainTypedArray(R.array.images)
         val imgID = Random().nextInt(imageArray.length())
         try {
             val getRes = imageArray.getResourceId(imgID, 0)
-            Log.d("score", imageArray.getResourceId(imgID, 0).toString())
             img.setImageResource(getRes)
+            Log.d("xdlsd", "Now all images changed")
+
+                img.tag = imgID
+
         } catch (e: Exception) {
-            Log.d("score", e.toString())
+            Log.e("pictureError", e.toString())
         }
         imageArray.recycle()
-        return imgID
     }
 
     // Change the current bird that gives points
     private fun changeCurrentBird(): String {
         val birds = arrayOf("bird1", "bird2", "bird3", "bird4")
         val randomIndex = Random().nextInt(birds.size)
+        birdToLookFor = birds[randomIndex]
+        Log.d("xdlsd", "CurrentBird to look for changed")
         return birds[randomIndex]
     }
 
     // Give points if the player presses the right bird
-    private fun giveScore(bird: String, birdID: Int) {
-        val imageArray = resources.obtainTypedArray(R.array.images)
+    private fun giveScore(clickedBird: String, clickedImageTag: ImageView) {
         val birdNameID = mapOf(
-            "bird1" to 2131165272,
-            "bird2" to 2131165269,
-            "bird3" to 2131165270,
-            "bird4" to 2131165271
+            "bird1" to 0,
+            "bird2" to 1,
+            "bird3" to 2,
+            "bird4" to 3
         )
 
-        if (birdNameID[bird] == imageArray.getResourceId(birdID, 0)) {
+        if (birdNameID[clickedBird] === clickedImageTag.tag) {
             score++
-            Log.d("score", "Added one score, score is now: $score")
+            Log.d("score", "Bird was: $clickedBird, and clickedImage was ${clickedImageTag.tag} score is now: $score")
         }
-        imageArray.recycle()
     }
 }
