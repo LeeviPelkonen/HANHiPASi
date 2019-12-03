@@ -2,9 +2,9 @@
 <resources>
     
     <array name="images">
-        <item>@drawable/ic_bird_placeholder</item>
-        <item>@drawable/ic_bird2</item>
-        <item>@drawable/ic_bird3</item>
-        <item>@drawable/ic_bird4</item>
+        <item>@drawable/gamepunasotka</item>
+        <item>@drawable/gameristisorsa</item>
+        <item>@drawable/gamenokikana</item>
+        <item>@drawable/gamelapasorsa</item>
     </array>
 </resources>
