@@ -64,7 +64,7 @@ class QuestionnaireActivity : AppCompatActivity(), OnFragmentInteractionListener
         list.add(Question(Type.TEXT, "#234234", "Kaulushaikaran huuto muistuttaa eniten:", mutableListOf("Kiljumista", "Torven soittoa", "Pulloon puhaltamista", "Ulvontaa"), "no", "Pulloon puhaltamista"))
         list.add(Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Lapasorsa", "Punasotka", "Ristisorsa", "Taivaanvuohi"), "ristisorsa", "Ristisorsa"))
 
-        list.add(Question(Type.TEXT, "#234234", "Mikä on Pohjois-Pohjanmaan maakuntalintu?", mutableListOf("Kurki", "Ruokki", "Ruskosuohaukka", "Lapasorsa"), "no", "Kurki"))
+        list.add(Question(Type.TEXT, "#234234", "Harmaahaikarat aiheuttavat eniten harmia:", mutableListOf("Maanviljelijöille", "Kalaviljelijöille", "Metsästäjille", "Sukeltajille"), "no", "Kalaviljelijöille"))
         list.add(Question(Type.IMAGE, "#234234", "Mikä lintu esiintyy kuvassa?", mutableListOf("Ruisrääkkä", "Ruskosuohaukka", "Kurki", "Harmaahaikara"), "ruskosuohaukka", "Ruskosuohaukka"))
 
         list.add(Question(Type.TEXT, "#234234", "Missä maastossa nokikana viihtyy?", mutableListOf("Vesistöissä", "Puiden latvoissa", "Heinikossa", "Hiekkarannoilla"), "no", "Vesistöissä"))
