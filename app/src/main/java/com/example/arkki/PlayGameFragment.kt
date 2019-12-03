@@ -50,6 +50,11 @@ class PlayGameFragment : Fragment() {
 
         }
         Log.d("xdlsd", gridList.toString())
+        curBird?.text = changeCurrentBird()
+
+        for (r in gridList) {
+            changePictures(r)
+        }
 
 
         for (i in gridList) {
