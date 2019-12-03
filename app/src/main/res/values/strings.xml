@@ -73,6 +73,9 @@
 
     <string name="QuestionNumber">%1$d/%2$d</string>
     <string name="pahus">Pahus, vastauksistasi meni oikein vain %1$d%%</string>
-    <string name="jippii">Jippii! vastasit %1$d%% oikein!</string>
+    <string name="jippii">Jippii! Vastasit %1$d%% oikein! Lunasta palkintosi alhaalta</string>
+    <string name="kaikkivaarin">Pahus, kaikki vastauksesi olivat väärin.</string>
+    <string name="laheltapiti">Läheltä piti, %1$d%% vastauksistasi meni oikein!</string>
+    <string name="kaikkioikein">Loistavaa! Tiesit vastauksen jokaiseen kysymykseen! Lunasta palkintosi alhaalta.</string>
 
 </resources>
