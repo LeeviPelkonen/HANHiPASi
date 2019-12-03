@@ -132,17 +132,17 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
                 "Peli" -> {
                     val intent = Intent(this, BirdGame::class.java)
                     startActivity(intent)
-                    Log.d("dbg", "peli")
+                    customType(this, "bottom-to-up")
                 }
                 "Trivia" -> {
                     val intent = Intent(this, QuestionnaireActivity::class.java)
                     startActivity(intent)
-                    Log.d("dbg", "trivia")
+                    customType(this, "bottom-to-up")
                 }
                 "Kamera" -> {
                     val intent = Intent(this, InstaCameraActivity::class.java)
                     startActivity(intent)
-                    Log.d("dbg", "kamera")
+                    customType(this, "bottom-to-up")
                 }
 
             }
