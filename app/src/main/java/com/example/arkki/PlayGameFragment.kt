@@ -134,6 +134,7 @@ class PlayGameFragment : Fragment() {
 
             override fun onFinish() {
                 timer?.text = getString(R.string.time_up)
+                timer?.textSize = 60.0F
                 for (i in gridList) {
                     i.isClickable = false
                 }
