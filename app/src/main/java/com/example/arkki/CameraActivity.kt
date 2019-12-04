@@ -51,7 +51,7 @@ import com.example.arkki.tflite.Classifier.Model
 import com.example.arkki.tflite.Classifier.Recognition
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 import maes.tech.intentanim.CustomIntent.customType
 
 

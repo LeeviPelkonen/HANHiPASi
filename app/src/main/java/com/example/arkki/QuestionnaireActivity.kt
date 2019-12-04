@@ -13,7 +13,7 @@ import com.example.arkki.Questionnaire.Type
 import com.example.arkki.Questionnaire.WordFragment
 import kotlinx.android.synthetic.main.activity_questionnaire.*
 import maes.tech.intentanim.CustomIntent
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 interface OnFragmentInteractionListener {
     // TODO: Update argument type and name

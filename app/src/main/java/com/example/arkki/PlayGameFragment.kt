@@ -15,7 +15,7 @@ import android.widget.TextView
 import java.lang.Exception
 import java.util.*
 import kotlin.math.roundToInt
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class PlayGameFragment : Fragment() {
 

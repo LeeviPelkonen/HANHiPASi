@@ -13,7 +13,7 @@ import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import com.example.arkki.OnFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_word.view.*
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 
 class WordFragment(private val question: Question) : Fragment() {

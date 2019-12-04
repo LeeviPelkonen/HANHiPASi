@@ -30,7 +30,7 @@ import maes.tech.intentanim.CustomIntent
 import org.jetbrains.anko.image
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.toast
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 import java.io.*
 
 
@@ -183,7 +183,7 @@ class InstaCameraActivity : AppCompatActivity() {
     //sharing the image to selected media source
     private fun shareImage(){
         if(imageTaken){
-            val bmpUri = FileProvider.getUriForFile(this, "org.tensorflow.lite.examples.classification.fileprovider", imageFile!!)
+            val bmpUri = FileProvider.getUriForFile(this, "com.hanhipasi.luontoarkki.fileprovider", imageFile!!)
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_STREAM, bmpUri)
@@ -262,7 +262,7 @@ class InstaCameraActivity : AppCompatActivity() {
         imageFile = File.createTempFile(fileName, ".jpg", imgPath )
         val photoURI: Uri = FileProvider.getUriForFile(
             this,
-            "org.tensorflow.lite.examples.classification.fileprovider",
+            "com.hanhipasi.luontoarkki.fileprovider",
             imageFile!!
         )
         mCurrentPhotoPath = imageFile!!.absolutePath

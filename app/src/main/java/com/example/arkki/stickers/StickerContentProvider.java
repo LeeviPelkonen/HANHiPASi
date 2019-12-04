@@ -24,7 +24,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.tensorflow.lite.examples.classification.BuildConfig;
+
+import com.hanhipasi.luontoarkki.BuildConfig;
 
 import java.io.IOException;
 import java.io.InputStream;

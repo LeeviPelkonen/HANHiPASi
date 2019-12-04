@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.tensorflow.lite.examples.classification">
+    package="com.hanhipasi.luontoarkki">
 
     <uses-sdk />
 
@@ -66,7 +66,7 @@
             android:resource="@array/preloaded_fonts" />
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="org.tensorflow.lite.examples.classification.fileprovider"
+            android:authorities="com.hanhipasi.luontoarkki.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
 

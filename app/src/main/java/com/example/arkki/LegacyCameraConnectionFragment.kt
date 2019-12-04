@@ -35,7 +35,7 @@ import java.io.IOException
 import com.example.arkki.customview.AutoFitTextureView
 import com.example.arkki.env.ImageUtils
 import com.example.arkki.env.Logger
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class LegacyCameraConnectionFragment @SuppressLint("ValidFragment")
 constructor(

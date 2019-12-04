@@ -4,7 +4,7 @@ import android.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class BirdGame : AppCompatActivity() {
 

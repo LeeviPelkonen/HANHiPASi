@@ -34,12 +34,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.arkki.stickers.StickerPackDetailsActivity
+import com.hanhipasi.luontoarkki.BuildConfig
 import kotlinx.android.synthetic.main.activity_questionnaire_end.*
 import maes.tech.intentanim.CustomIntent
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
-import org.tensorflow.lite.examples.classification.BuildConfig
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class QuestionnaireEndActivity : AppCompatActivity() {
 

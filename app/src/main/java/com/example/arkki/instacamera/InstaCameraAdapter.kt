@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_insta_camera.view.*
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class InstaCameraAdapter(private val itemList: List<Bird>,private val instaCameraActivity: InstaCameraActivity): RecyclerView.Adapter<InstaCameraAdapter.CustomViewHolder>() {
 

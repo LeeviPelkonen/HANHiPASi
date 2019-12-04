@@ -15,7 +15,8 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import org.tensorflow.lite.examples.classification.BuildConfig;
+
+import com.hanhipasi.luontoarkki.BuildConfig;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

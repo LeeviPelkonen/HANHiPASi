@@ -36,7 +36,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.arkki.OnFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_quiz_picture.view.*
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 
 class QuizPictureFragment(private val question: Question) : Fragment() {

@@ -36,7 +36,7 @@ import com.example.arkki.env.Logger
 import com.example.arkki.tflite.Classifier
 import com.example.arkki.tflite.Classifier.Device
 import com.example.arkki.tflite.Classifier.Model
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class ClassifierActivity : CameraActivity(), OnImageAvailableListener {
     private var rgbFrameBitmap: Bitmap? = null

@@ -57,7 +57,7 @@ import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import com.example.arkki.customview.AutoFitTextureView
 import com.example.arkki.env.Logger
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 class CameraConnectionFragment @SuppressLint("ValidFragment")
 private constructor(

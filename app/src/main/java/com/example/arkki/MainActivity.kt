@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.arkki.instacamera.InstaCameraActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import maes.tech.intentanim.CustomIntent.customType
-import org.tensorflow.lite.examples.classification.R
+import com.hanhipasi.luontoarkki.R
 
 
 class MainActivity : AppCompatActivity() {
