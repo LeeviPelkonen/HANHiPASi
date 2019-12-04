@@ -45,6 +45,7 @@ import android.view.WindowManager
 import android.widget.*
 import com.example.arkki.env.ImageUtils
 import com.example.arkki.env.Logger
+import com.example.arkki.instacamera.InstaCameraActivity
 import com.example.arkki.tflite.Classifier.Device
 import com.example.arkki.tflite.Classifier.Model
 import com.example.arkki.tflite.Classifier.Recognition
@@ -130,13 +131,19 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, C
                     Log.d("dbg", "linnut")
                 }
                 "Peli" -> {
-                    Log.d("dbg", "peli")
+                    val intent = Intent(this, BirdGame::class.java)
+                    startActivity(intent)
+                    customType(this, "bottom-to-up")
                 }
                 "Trivia" -> {
-                    Log.d("dbg", "trivia")
+                    val intent = Intent(this, QuestionnaireActivity::class.java)
+                    startActivity(intent)
+                    customType(this, "bottom-to-up")
                 }
                 "Kamera" -> {
-                    Log.d("dbg", "kamera")
+                    val intent = Intent(this, InstaCameraActivity::class.java)
+                    startActivity(intent)
+                    customType(this, "bottom-to-up")
                 }
 
             }

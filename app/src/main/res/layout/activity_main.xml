@@ -32,6 +32,7 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/home_bg"
             android:contentDescription="background image" />
+
     </FrameLayout>
 
     <TextView

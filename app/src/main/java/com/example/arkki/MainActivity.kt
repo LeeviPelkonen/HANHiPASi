@@ -1,12 +1,14 @@
 package com.example.arkki
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.example.arkki.instacamera.InstaCameraActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import maes.tech.intentanim.CustomIntent.customType
 import org.tensorflow.lite.examples.classification.R
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         navigationBar = findViewById(R.id.bottomNavigationView)
         navigationBar.setOnNavigationItemSelectedListener {
@@ -28,10 +31,15 @@ class MainActivity : AppCompatActivity() {
                     customType(this, "bottom-to-up")
                 }
                 "Peli" -> {
+                    val intent = Intent(this, BirdGame::class.java)
+                    startActivity(intent)
                     Log.d("dbg", "peli")
                 }
                 "Trivia" -> {
                     Log.d("dbg", "trivia")
+                    val intent = Intent(this, QuestionnaireActivity::class.java)
+                    startActivity(intent)
+                    customType(this, "bottom-to-up")
                 }
                 "Kamera" -> {
                     Log.d("dbg", "kamera123")
@@ -45,11 +53,11 @@ class MainActivity : AppCompatActivity() {
 
             return@setOnNavigationItemSelectedListener true
         }
-
     }
 
     override fun onResume() {
         super.onResume()
         navigationBar.selectedItemId = R.id.action_home
     }
+
 }

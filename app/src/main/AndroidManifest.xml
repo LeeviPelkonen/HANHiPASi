@@ -19,8 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name="com.example.arkki.QuestionnaireEndActivity"/>
+        <activity android:name="com.example.arkki.QuestionnaireActivity" />
         <activity
-            android:name="com.example.arkki.InstaCameraActivity"
+            android:name="com.example.arkki.instacamera.InstaCameraActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -52,10 +54,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.arkki.BirdGame"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <!--
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="org.tensorflow.lite.examples.classification.fileprovider"
@@ -67,6 +75,13 @@
                 android:resource="@xml/file_paths"/>
 
         </provider>
-        !-->
+
+        <provider
+            android:name="com.example.arkki.stickers.StickerContentProvider"
+            android:authorities="${contentProviderAuthority}"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.whatsapp.sticker.READ" />
+
     </application>
 </manifest>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <array name="images">
+        <item>@drawable/gamepunasotka</item>
+        <item>@drawable/gameristisorsa</item>
+        <item>@drawable/gamenokikana</item>
+        <item>@drawable/gamelapasorsa</item>
+    </array>
+</resources>
