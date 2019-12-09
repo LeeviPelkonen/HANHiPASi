@@ -71,6 +71,11 @@
         Taivaanvuohi pesii kosteikoilla, soilla ja järvien luhtaniityillä.\n\n
         Taivaanvuohi syö lieroja, nilviäisiä ja muita pikkueläimiä, sekä myös kasvinosia ja siemeniä.</string>
 
+    <string name="kaakkuri">Kaakkuri (Gavia stellata) on kuikkien sukuun kuuluva karujen sisävesien lintulaji. Sen kanta on Suomessa vähentynyt, joten se kuuluu alueellisesti silmällä pidettäviin lajeihin.\n\n
+    Kaakkuri on levinnyt melko laajalle alueelle, sillä se pesii pohjoisessa Euraasiassa ja arktisessa Kanadassa. Suomessa pesi 1990-luvun tietojen mukaan 900–1 100 kaakkuriparia. Laji talvehtii Länsi-Euroopan ja Välimeren rannikoilla, mutta kanta on pienentynyt siitä, ja BirdLifen vuoden 2010 arvion mukaan pesiviä pareja on 600–750. Kanta on vähentynyt huomattavasti koko 1900-luvun ajan. Syynä pidetään nykyisin ensisijaisesti muutto- ja talvehtimisaikaisia oloja, kuten Tanskan kalaverkkoja ja myrkkyjä.\n\n
+    Pienet runsaskasvustoiset ja -kalaiset metsälammet sekä suolampareet ovat kaakkurin pesimäpaikkoja.\n\n
+    Kaakkuri käyttää ravinnokseen kalaa, joita se pyydystää jopa yli 750 metrin sukelluksillaan. Laji syö myös äyriäisiä ja hyönteisiä.</string>
+
 
     <string name="QuestionNumber">%1$d/%2$d</string>
     <string name="pahus">Pahus, vastauksistasi meni oikein vain %1$d%%</string>

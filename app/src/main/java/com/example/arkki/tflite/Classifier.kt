@@ -284,8 +284,8 @@ protected constructor(private val activity: Activity, device: Device, numThreads
         Trace.endSection()
         val newBird = recognitions[0]
 
-        if (leadingBird == newBird.title && newBird.confidence!! >= 0.97f) {
-            if (newBird.title != "kyssäri") {
+        if (leadingBird == newBird.title && newBird.confidence!! >= 0.95f) {
+            if (newBird.title != "black_bird"){
                 birdCounter++
             }
         } else {
