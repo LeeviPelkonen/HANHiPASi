@@ -85,15 +85,15 @@
     <string name="kaikkioikein">Loistavaa! Tiesit vastauksen jokaiseen kysymykseen! Lunasta palkintosi alhaalta.</string>
 
     <string name="game_name">Bird Game</string>
-    <string name="highscore">High-score:</string>
-    <string name="start">Start</string>
-    <string name="quit">Quit</string>
+    <string name="score">Pisteet: %d</string>
+    <string name="start">Aloita</string>
+    <string name="quit">Poistu</string>
     <string name="bird1">Bird 1</string>
     <string name="bird2">Bird 2</string>
     <string name="bird3">Bird 3</string>
     <string name="bird4">Bird 4</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="time_up">Time is up</string>
+    <string name="hello_blank_fragment">Aikaa jäljellä: %d</string>
+    <string name="time_up">Aika loppui!</string>
     <string name="valikkoon">Valikkoon</string>
 
 
