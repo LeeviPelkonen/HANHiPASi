@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:text="@string/highscore"
+        android:text="@string/bird1"
         android:textSize="40sp"/>
 
     <TextView
@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:textSize="25sp"/>
+        android:textSize="25sp"
+        android:text="@string/score"/>
 
     <GridLayout
         android:id="@+id/imageGrid"

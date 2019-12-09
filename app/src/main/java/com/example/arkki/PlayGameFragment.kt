@@ -1,7 +1,6 @@
 package com.example.arkki
 
 import android.content.res.TypedArray
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -24,6 +23,7 @@ class PlayGameFragment : Fragment() {
     val gridList = arrayListOf<ImageView>()
     var birdToLookFor = ""
     lateinit var countDownTime: CountDownTimer
+    var correctBird = false
 
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class PlayGameFragment : Fragment() {
         val wholeGrid = activity?.findViewById<GridLayout>(R.id.imageGrid)
         val timer = activity?.findViewById<TextView>(R.id.timer)
         val scoreText = activity?.findViewById<TextView>(R.id.score)
-        scoreText?.text = score.toString()
+        scoreText?.text = getString(R.string.score, score)
         val curBird = activity?.findViewById<TextView>(R.id.currentBird)
 
         for (index in 0 until (wholeGrid)!!.childCount)
@@ -61,12 +61,14 @@ class PlayGameFragment : Fragment() {
             i.isClickable
             i.setOnClickListener {
                 giveScore(birdToLookFor, i)
+                scoreText?.text = getString(R.string.score, score)
                 curBird?.text = changeCurrentBird()
-                scoreText?.text = "Score: " + score.toString()
-                for (e in gridList) {
-                    changePictures(e)
+                if (correctBird) {
+                    for (e in gridList) {
+                        changePictures(e)
+                    }
+                    Log.d("xdlsd", i.tag.toString())
                 }
-                Log.d("xdlsd", i.tag.toString())
             }
 
         }
@@ -114,7 +116,15 @@ class PlayGameFragment : Fragment() {
             "Lapasorsa" to 3
         )
 
-        if (birdNameID[clickedBird] === clickedImageTag.tag) {
+        if (birdNameID[clickedBird] != clickedImageTag.tag && score > 0) {
+            correctBird = false
+            score--
+            Log.d("score", "Bird was: $clickedBird, and clickedImage was ${clickedImageTag.tag} score is now: $score")
+        } else if (birdNameID[clickedBird] != clickedImageTag.tag && score == 0) {
+            correctBird = false
+
+        }else if (birdNameID[clickedBird] === clickedImageTag.tag) {
+            correctBird = true
             score++
             Log.d("score", "Bird was: $clickedBird, and clickedImage was ${clickedImageTag.tag} score is now: $score")
         }
@@ -125,29 +135,27 @@ class PlayGameFragment : Fragment() {
     }
 
     private fun createTimer(timer: TextView?, curBird: TextView?): CountDownTimer {
-        val cTimer = object : CountDownTimer(30000, 1000) {
+        return object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 performTick(millisUntilFinished, timer)
-                timer?.text = "Time left: " + time.toString()
+                timer?.text = getString(R.string.hello_blank_fragment, time)
                 time--
             }
 
             override fun onFinish() {
                 timer?.text = getString(R.string.time_up)
                 timer?.textSize = 60.0F
+                activity?.findViewById<TextView>(R.id.score)?.textSize = 60.0F
                 for (i in gridList) {
                     i.isClickable = false
                 }
                 curBird?.text = ""
             }
         }
-        return cTimer
     }
 
     override fun onStop() {
         super.onStop()
-        if (countDownTime != null) {
-            countDownTime.cancel()
-        }
+        countDownTime.cancel()
     }
 }
